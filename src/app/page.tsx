@@ -1,7 +1,7 @@
 import Hero from "@/components/Hero";
 import DataHub from "@/components/DataHub";
 import NeuralNetwork from "@/components/NeuralNetwork";
-import StreamerSection from "@/components/StreamerSection";
+import TerminalSection from "@/components/TerminalSection";
 import MerchSection from "@/components/MerchSection";
 
 export default function Home() {
@@ -10,7 +10,7 @@ export default function Home() {
       <Hero />
       <DataHub />
       <NeuralNetwork />
-      <StreamerSection />
+      <TerminalSection />
       <MerchSection />
       
       {/* Placeholder for other sections */}
