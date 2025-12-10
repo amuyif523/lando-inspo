@@ -12,7 +12,13 @@ export type ContributionHeatmap = {
 export async function fetchContributionData(): Promise<ContributionHeatmap> {
   try {
     const res = await fetch(`${CONTRIBUTIONS_API}/${GITHUB_USER}`, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error(`Failed with ${res.status}`);
+    if (!res.ok) {
+      return {
+        days: fallbackHeatmap,
+        total: fallbackActivityStats.totalContributions,
+        streak: fallbackActivityStats.currentStreak,
+      };
+    }
     const data = await res.json();
     const weeks = data?.contributions?.weeks ?? [];
 
@@ -34,7 +40,7 @@ export async function fetchContributionData(): Promise<ContributionHeatmap> {
       streak: data?.streak?.current ?? fallbackActivityStats.currentStreak,
     };
   } catch (error) {
-    console.error("Contribution fetch failed, using fallback:", error);
+    console.warn("Contribution fetch failed, using fallback:", error);
     return {
       days: fallbackHeatmap,
       total: fallbackActivityStats.totalContributions,
@@ -46,7 +52,9 @@ export async function fetchContributionData(): Promise<ContributionHeatmap> {
 export async function fetchActivityStats(): Promise<ActivityStats> {
   try {
     const res = await fetch(`${CONTRIBUTIONS_API}/${GITHUB_USER}`, { next: { revalidate: 3600 } });
-    if (!res.ok) throw new Error(`Failed with ${res.status}`);
+    if (!res.ok) {
+      return fallbackActivityStats;
+    }
     const data = await res.json();
 
     return {
@@ -57,7 +65,7 @@ export async function fetchActivityStats(): Promise<ActivityStats> {
       totalContributions: data?.totalContributions ?? fallbackActivityStats.totalContributions,
     };
   } catch (error) {
-    console.error("Stats fetch failed, using fallback:", error);
+    console.warn("Stats fetch failed, using fallback:", error);
     return fallbackActivityStats;
   }
 }
