@@ -4,6 +4,7 @@ import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
+import { useReducedMotion } from "framer-motion";
 
 function ParticleField() {
   const ref = useRef<THREE.Points>(null!);
@@ -58,6 +59,12 @@ function ParticleField() {
 }
 
 export default function ParticleBackground() {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-cyan/5 via-transparent to-black" />;
+  }
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none opacity-60">
       <Canvas camera={{ position: [0, 0, 1] }}>

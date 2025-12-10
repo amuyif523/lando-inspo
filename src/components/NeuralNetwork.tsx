@@ -1,8 +1,15 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-import BrainViewer from "./BrainViewer";
 import { Cpu, Network, Zap, Database } from "lucide-react";
+
+const BrainViewer = dynamic(() => import("./BrainViewer"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[500px] md:h-[600px] rounded-2xl border border-white/5 bg-gradient-to-br from-cyan/10 to-purple/10 animate-pulse" />
+  ),
+});
 
 const systems = [
   {

@@ -1,11 +1,16 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import ParticleBackground from "./ParticleBackground";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
+
+const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
+  ssr: false,
+  loading: () => <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/5 via-black to-black" />,
+});
 
 export default function Hero() {
   const ref = useRef(null);

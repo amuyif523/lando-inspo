@@ -4,6 +4,7 @@ import { useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, Float, Stars } from "@react-three/drei";
 import * as THREE from "three";
+import { useReducedMotion } from "framer-motion";
 
 function NeuralConnections({ count = 40 }: { count?: number }) {
   const points = useMemo(() => {
@@ -63,6 +64,19 @@ function NeuralConnections({ count = 40 }: { count?: number }) {
 }
 
 export default function BrainViewer() {
+  const prefersReducedMotion = useReducedMotion();
+
+  if (prefersReducedMotion) {
+    return (
+      <div className="w-full h-[500px] md:h-[600px] rounded-2xl border border-white/5 bg-gradient-to-br from-cyan/5 via-black to-purple/10 flex items-center justify-center">
+        <div className="text-center space-y-2">
+          <p className="text-sm uppercase tracking-widest text-gray-500">3D view paused</p>
+          <p className="text-lg font-semibold text-white">Prefers reduced motion enabled</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-[500px] md:h-[600px] cursor-grab active:cursor-grabbing bg-black/20 rounded-2xl border border-white/5 backdrop-blur-sm overflow-hidden">
       <Canvas camera={{ position: [0, 0, 6], fov: 60 }}>

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { fetchContributionData, type ContributionHeatmap as ContributionData } from "@/lib/data";
 
@@ -9,6 +9,7 @@ export default function ContributionHeatmap() {
   const days = 7;
   const [data, setData] = useState<ContributionData | null>(null);
   const [loading, setLoading] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     let mounted = true;
@@ -40,11 +41,13 @@ export default function ContributionHeatmap() {
       <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-[length:20px_20px]" />
       
       {/* Scanning Effect */}
-      <motion.div
-        animate={{ top: ["0%", "100%"] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-        className="absolute left-0 right-0 h-px bg-cyan shadow-[0_0_20px_rgba(0,240,255,0.5)] z-10 pointer-events-none"
-      />
+      {!prefersReducedMotion && (
+        <motion.div
+          animate={{ top: ["0%", "100%"] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          className="absolute left-0 right-0 h-px bg-cyan shadow-[0_0_20px_rgba(0,240,255,0.5)] z-10 pointer-events-none"
+        />
+      )}
 
       {/* Heatmap Grid */}
       <div className="flex gap-1 transform -skew-x-12 scale-90 md:scale-100">

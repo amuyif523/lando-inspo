@@ -128,6 +128,7 @@ export default function TerminalSection() {
               onChange={(e) => setInput(e.target.value)}
               className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder-green-500/30"
               placeholder="Enter command..."
+              aria-label="Terminal command input"
               autoFocus
             />
             <button type="submit" className="text-green-500 hover:text-green-400">
