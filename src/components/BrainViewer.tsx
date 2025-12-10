@@ -2,15 +2,53 @@
 
 import { useMemo, useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Stars, Instances, Instance } from "@react-three/drei";
+import { OrbitControls, Stars, Instances, Instance, Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useReducedMotion } from "framer-motion";
 
 type Edge = { a: number; b: number };
 
-const NODE_COUNT = 140;
+const NODE_COUNT = 200;
 const CONNECTIONS_PER_NODE = 4;
 const SIGNAL_COUNT = 90;
+const GLYPH_COUNT = 8;
+
+function SparkParticles() {
+  const positions = useMemo(() => {
+    const count = 1200;
+    const arr = new Float32Array(count * 3);
+    for (let i = 0; i < count; i++) {
+      const r = 3.5 * Math.cbrt(Math.random());
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      arr[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      arr[i * 3 + 1] = r * Math.cos(phi);
+      arr[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+    }
+    return arr;
+  }, []);
+
+  const ref = useRef<THREE.Points>(null);
+  useFrame((_, delta) => {
+    if (ref.current) {
+      ref.current.rotation.y += delta * 0.05;
+    }
+  });
+
+  return (
+    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <PointMaterial
+        transparent
+        color="#ffffff"
+        size={0.02}
+        sizeAttenuation
+        depthWrite={false}
+        opacity={0.4}
+        blending={THREE.AdditiveBlending}
+      />
+    </Points>
+  );
+}
 
 function buildGraph() {
   const nodes = new Array(NODE_COUNT).fill(0).map(() => {
@@ -59,10 +97,16 @@ function NeuralAtlas() {
 
   const colorsRef = useRef<THREE.BufferAttribute | null>(null);
   const signalsRef = useRef<THREE.InstancedMesh>(null);
+  const glyphsRef = useRef<THREE.InstancedMesh>(null);
   const [hovered, setHovered] = useState<number | null>(null);
   const signalGeometry = useMemo(() => new THREE.SphereGeometry(0.04, 8, 8), []);
   const signalMaterial = useMemo(
     () => new THREE.MeshStandardMaterial({ color: "#ffffff", emissive: "#00F0FF", emissiveIntensity: 2 }),
+    []
+  );
+  const glyphGeometry = useMemo(() => new THREE.BoxGeometry(0.1, 0.1, 0.1), []);
+  const glyphMaterial = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#ffffff", emissive: "#BD00FF", emissiveIntensity: 1.5, metalness: 0.2, roughness: 0.3 }),
     []
   );
 
@@ -124,6 +168,20 @@ function NeuralAtlas() {
       });
       signalsRef.current.instanceMatrix.needsUpdate = true;
     }
+
+    if (glyphsRef.current) {
+      const dummy = new THREE.Object3D();
+      for (let i = 0; i < GLYPH_COUNT; i++) {
+        const radius = 2.4 + (i % 3) * 0.5;
+        const angle = t * 0.3 + (i / GLYPH_COUNT) * Math.PI * 2;
+        dummy.position.set(Math.cos(angle) * radius, Math.sin(angle * 1.2) * 0.6, Math.sin(angle) * radius);
+        dummy.rotation.set(angle, angle * 1.3, 0);
+        dummy.scale.setScalar(0.4 + 0.1 * Math.sin(t * 1.5 + i));
+        dummy.updateMatrix();
+        glyphsRef.current.setMatrixAt(i, dummy.matrix);
+      }
+      glyphsRef.current.instanceMatrix.needsUpdate = true;
+    }
   });
 
   return (
@@ -165,6 +223,15 @@ function NeuralAtlas() {
         <primitive object={signalGeometry} attach="geometry" />
         <primitive object={signalMaterial} attach="material" />
       </instancedMesh>
+
+      {/* Orbiting glyphs */}
+      <instancedMesh ref={glyphsRef} args={[glyphGeometry, glyphMaterial, GLYPH_COUNT]}>
+        <primitive object={glyphGeometry} attach="geometry" />
+        <primitive object={glyphMaterial} attach="material" />
+      </instancedMesh>
+
+      {/* Sparkle particles */}
+      <SparkParticles />
 
       {/* Background glow planes */}
       <mesh position={[0, 0, -2]} rotation={[0, 0, 0]}>
