@@ -1,4 +1,15 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Lando Norris Fan Site Concept
+
+This is a Next.js project styled with Tailwind CSS and animated with Framer Motion, inspired by the high-energy aesthetic of Lando Norris.
+
+**[🚀 View the Full Project Roadmap](./ROADMAP.md)**
+
+## Tech Stack
+
+- **Framework:** Next.js 15 (App Router)
+- **Styling:** Tailwind CSS v4
+- **Animation:** Framer Motion
+- **Icons:** Lucide React
 
 ## Getting Started
 
@@ -8,6 +19,24 @@ First, run the development server:
 npm run dev
 # or
 yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Project Structure
+
+- `src/app/page.tsx`: The main landing page (Hero section).
+- `src/components/Navbar.tsx`: The navigation bar.
+- `src/components/Hero.tsx`: The hero section with animations.
+- `src/app/globals.css`: Global styles and Tailwind configuration (Neon colors).
+
+## Customization
+
+You can adjust the colors in `src/app/globals.css` by modifying the `--lando-yellow` variable.
 # or
 pnpm dev
 # or
