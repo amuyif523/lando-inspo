@@ -5,12 +5,17 @@ import { useState, useEffect } from "react";
 
 export default function ContributionHeatmap() {
   // Generate dummy data for the heatmap (52 weeks x 7 days)
-  const [contributions, setContributions] = useState<number[]>([]);
   const weeks = 52;
   const days = 7;
+  const [contributions, setContributions] = useState<number[]>(Array(weeks * days).fill(0));
 
   useEffect(() => {
-    setContributions(Array.from({ length: weeks * days }, () => Math.floor(Math.random() * 5)));
+    // Randomize data on client-side only to avoid hydration mismatch
+    // Using setTimeout to avoid "setState synchronously within an effect" warning
+    const timer = setTimeout(() => {
+      setContributions(Array.from({ length: weeks * days }, () => Math.floor(Math.random() * 5)));
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
 
   const getColor = (level: number) => {
