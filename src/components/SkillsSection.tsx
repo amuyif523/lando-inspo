@@ -2,26 +2,16 @@
 
 import { motion } from "framer-motion";
 import { skillGroups, profile } from "@/content/profile";
+import SectionHeader from "./SectionHeader";
 
 export default function SkillsSection() {
   return (
     <section id="skills" className="py-24 bg-black relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-cyan" />
-            <span className="text-cyan font-bold uppercase tracking-widest">
-              Capabilities
-            </span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tighter display-font bg-clip-text text-transparent bg-[var(--gradient-accent)]">
-            Skills & Systems
-          </h2>
-          <p className="text-gray-400 mt-4 max-w-2xl">
-            {profile.tagline}
-          </p>
-        </div>
+        <SectionHeader eyebrow="Capabilities" title="Skills" highlight="& Systems" accent="cyan" />
+        <p className="text-gray-400 mt-[-8px] mb-8 max-w-2xl">
+          {profile.tagline}
+        </p>
 
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -7,6 +7,10 @@
   --neon-purple: #BD00FF;
   --dark-surface: #0A0A0A;
   --gradient-accent: linear-gradient(90deg, var(--neon-cyan) 0%, #ffffff 50%, var(--neon-purple) 100%);
+  --surface: rgba(255, 255, 255, 0.04);
+  --surface-strong: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
@@ -24,6 +28,13 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+.card-surface {
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
+  border-color: var(--border);
+  backdrop-filter: blur(6px);
 }
 
 .display-font,

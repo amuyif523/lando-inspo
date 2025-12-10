@@ -5,6 +5,7 @@ import { FolderPlus } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
 import { projects, type Project } from "@/content/projects";
 import { contactChannels } from "@/content/profile";
+import SectionHeader from "./SectionHeader";
 
 export default function ProjectsSection() {
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
@@ -55,19 +56,8 @@ export default function ProjectsSection() {
       />
 
       <div className="container mx-auto px-6">
-        {/* Header */}
         <div className="flex justify-between items-end mb-16">
-          <div>
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-1 bg-white" />
-              <span className="text-white font-bold uppercase tracking-widest">
-                Arsenal
-              </span>
-            </div>
-            <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
-              Project <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-white">Modules</span>
-            </h2>
-          </div>
+          <SectionHeader eyebrow="Arsenal" title="Project" highlight="Modules" accent="white" />
 
           <button 
             onClick={() => setIsBuilderOpen(true)}

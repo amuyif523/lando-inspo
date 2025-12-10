@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { contactChannels, profile } from "@/content/profile";
 import { useState } from "react";
+import SectionHeader from "./SectionHeader";
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
@@ -52,15 +53,7 @@ export default function ContactSection() {
       <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
         {/* Left: Intro + Channels */}
         <div className="space-y-6">
-          <div className="flex items-center gap-4 mb-2">
-            <div className="w-12 h-1 bg-cyan" />
-            <span className="text-cyan font-bold uppercase tracking-widest">
-              Contact
-            </span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tighter display-font">
-            Let&apos;s build what&apos;s next.
-          </h2>
+          <SectionHeader eyebrow="Contact" title="Let’s build" highlight="what’s next." accent="cyan" />
           <p className="text-gray-400 max-w-xl">
             {profile.availability} Reach out with a short brief or a link to your product, and we&apos;ll plan the right intelligence layer together.
           </p>

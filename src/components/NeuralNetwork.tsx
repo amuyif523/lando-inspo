@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Cpu, Network, Zap, Database } from "lucide-react";
+import SectionHeader from "./SectionHeader";
 
 const BrainViewer = dynamic(() => import("./BrainViewer"), {
   ssr: false,
@@ -42,18 +43,7 @@ export default function NeuralNetwork() {
   return (
     <section id="neural-core" className="py-24 bg-black relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-cyan" />
-            <span className="text-cyan font-bold uppercase tracking-widest">
-              System Architecture
-            </span>
-          </div>
-          <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
-            Neural <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-purple-600">Core</span>
-          </h2>
-        </div>
+        <SectionHeader eyebrow="System Architecture" title="Neural" highlight="Core" accent="cyan" />
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           {/* Left: 3D Viewer */}

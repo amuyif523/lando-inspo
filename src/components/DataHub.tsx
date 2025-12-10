@@ -6,6 +6,8 @@ import ContributionHeatmap from "./ContributionHeatmap";
 import { GitGraph, Cpu, Database } from "lucide-react";
 import { fetchActivityStats } from "@/lib/data";
 import { fallbackActivityStats } from "@/content/stats";
+import SectionHeader from "./SectionHeader";
+import StatCard from "./StatCard";
 
 export default function DataHub() {
   const nextLaunchDate = new Date();
@@ -29,15 +31,8 @@ export default function DataHub() {
 
   return (
     <section id="data-hub" className="py-24 bg-black relative overflow-hidden">
-      {/* Section Header */}
       <div className="container mx-auto px-6 mb-16">
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-1 bg-cyan" />
-          <span className="text-cyan font-bold uppercase tracking-widest">System Status</span>
-        </div>
-        <h2 className="text-5xl md:text-7xl font-black tracking-tighter">
-          DATA COMMAND <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-purple">CENTER</span>
-        </h2>
+        <SectionHeader eyebrow="System Status" title="DATA COMMAND" highlight="CENTER" accent="cyan" />
       </div>
 
       <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -74,18 +69,16 @@ export default function DataHub() {
           
           {/* Stats Grid (Mini Bento) */}
           <div className="grid grid-cols-2 gap-4 mt-4">
-            <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
-              <div className="text-xs font-bold uppercase text-gray-500 mb-2">Current Streak</div>
-              <div className="text-3xl font-black text-cyan">
-                {loading ? "…" : `${stats.currentStreak} Days`}
-              </div>
-            </div>
-            <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
-              <div className="text-xs font-bold uppercase text-gray-500 mb-2">Total Repos</div>
-              <div className="text-3xl font-black text-purple">
-                {loading ? "…" : stats.repositories}
-              </div>
-            </div>
+            <StatCard
+              label="Current Streak"
+              value={loading ? "…" : `${stats.currentStreak} Days`}
+              tone="cyan"
+            />
+            <StatCard
+              label="Total Repos"
+              value={loading ? "…" : stats.repositories}
+              tone="purple"
+            />
           </div>
         </div>
       </div>

@@ -2,26 +2,16 @@
 
 import { motion } from "framer-motion";
 import { careerMilestones } from "@/content/profile";
+import SectionHeader from "./SectionHeader";
 
 export default function CareerSection() {
   return (
     <section id="career" className="py-24 bg-black relative overflow-hidden">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-purple" />
-            <span className="text-purple font-bold uppercase tracking-widest">
-              Trajectory
-            </span>
-          </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tighter display-font">
-            Career Signals
-          </h2>
-          <p className="text-gray-400 mt-4 max-w-2xl">
-            A timeline of roles focused on shipping intelligent, data-rich products.
-          </p>
-        </div>
+        <SectionHeader eyebrow="Trajectory" title="Career" highlight="Signals" accent="purple" />
+        <p className="text-gray-400 mt-[-8px] mb-8 max-w-2xl">
+          A timeline of roles focused on shipping intelligent, data-rich products.
+        </p>
 
         {/* Timeline */}
         <div className="relative">
