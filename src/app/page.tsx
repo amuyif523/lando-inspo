@@ -1,11 +1,13 @@
 import Hero from "@/components/Hero";
 import RaceHub from "@/components/RaceHub";
+import HelmetGallery from "@/components/HelmetGallery";
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
       <Hero />
       <RaceHub />
+      <HelmetGallery />
       
       {/* Placeholder for other sections */}
       <section id="career" className="h-screen flex items-center justify-center border-t border-white/10">
