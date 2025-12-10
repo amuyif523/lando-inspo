@@ -2,9 +2,9 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
-import Image from "next/image";
 import ParticleBackground from "./ParticleBackground";
 import BootSequence from "./BootSequence";
+import CyberpunkProfile from "./CyberpunkProfile";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -88,33 +88,10 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.2, duration: 1.2 }}
-          className="flex-1 relative w-full max-w-lg aspect-square md:aspect-4/5"
+          className="flex-1 flex justify-center md:justify-end"
         >
-          <div className="absolute inset-0 bg-linear-to-tr from-cyan to-purple opacity-20 rounded-2xl blur-2xl -z-10" />
-          <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-black/50 backdrop-blur-sm">
-             <Image 
-              src="/amanuel.png" 
-              alt="Amanuel Fikremariam" 
-              fill
-              className="object-cover object-center hover:scale-105 transition-transform duration-700"
-              priority
-            />
-            {/* HUD Overlay */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-size-[20px_20px] pointer-events-none" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/90 to-transparent">
-              <div className="flex justify-between items-end">
-                <div className="font-mono text-xs text-cyan">
-                  STATUS: ONLINE<br/>
-                  LOC: UNKNOWN
-                </div>
-                <div className="h-1 w-24 bg-purple/50 overflow-hidden">
-                  <div className="h-full w-full bg-purple animate-progress origin-left" />
-                </div>
-              </div>
-            </div>
-          </div>
+          <CyberpunkProfile />
         </motion.div>
-
       </div>
 
       {/* Scroll Indicator */}

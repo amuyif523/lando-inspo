@@ -58,13 +58,13 @@ This document outlines the transformation of the "Lando Norris High-Energy Site"
     *   [x] **Socials:** Converted to **System Log**.
     *   [x] **Feature:** Added functional input field with commands (`help`, `about`, `skills`, `contact`, `clear`).
 
-### 🔄 Phase 5: The Arsenal (Formerly Merch Drop)
+### ✅ Phase 5: The Arsenal (Formerly Merch Drop) - **COMPLETE**
 *   **Concept:** Inventory / Skills.
-*   **Action Items:**
-    *   [ ] **Rename:** `MerchSection.tsx` -> `ProjectsSection.tsx`.
-    *   [ ] **Rename:** `CartDrawer.tsx` -> `ProjectBuilder.tsx`.
-    *   [ ] **UI:** Convert "Merch Cards" to **"Project Cards"** (e.g., "AI Chatbot", "Vision System").
-    *   [ ] **Interaction:** "Add to Cart" becomes **"Select for Inquiry"**. Users build a stack and "Checkout" to send a contact form.
+*   **Status:**
+    *   [x] **Rename:** `MerchSection.tsx` -> `ProjectsSection.tsx`.
+    *   [x] **Rename:** `CartDrawer.tsx` -> `ProjectBuilder.tsx`.
+    *   [x] **UI:** Converted "Merch Cards" to **"Project Cards"**.
+    *   [x] **Interaction:** "Add to Cart" became **"Select Module"**. Users build a stack and "Initiate Inquiry".
 
 ---
 
