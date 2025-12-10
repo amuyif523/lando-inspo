@@ -1,53 +1,70 @@
-# Lando Norris Fan Site Concept
+# Neural Architect Portfolio
 
-This is a Next.js project styled with Tailwind CSS and animated with Framer Motion, inspired by the high-energy aesthetic of Lando Norris.
+**Codename: "Neural Architect"**
 
-**[🚀 View the Full Project Roadmap](./ROADMAP.md)**
+A futuristic, cyberpunk-inspired portfolio for **Amanuel Fikremariam**, an AI, ML, and Data Programmer. This project transforms a high-energy racing aesthetic into a data-driven, computational interface.
 
-## Tech Stack
+**[🚀 View the Transformation Plan](./TRANSFORMATION_PLAN.md)**
 
+## 🎨 Visual Identity
+- **Theme:** Cyberpunk Intelligence
+- **Colors:** Deep Void Black, Electric Cyan (#00F0FF), Neural Purple (#BD00FF)
+- **Vibe:** "The Matrix meets High Fashion"
+
+## 🏗️ Key Features (Implemented)
+
+### 1. The Interface (Hero)
+- **Neural Constellation:** Interactive WebGL particle network background.
+- **Boot Sequence:** CLI-style system initialization.
+
+### 2. Data Command Center
+- **Contribution Heatmap:** Visualizing coding activity.
+- **System Status:** Real-time metrics (Uptime, Repositories).
+
+### 3. Neural Core
+- **3D Brain Viewer:** Interactive neural network visualization using React Three Fiber.
+- **System Architecture:** Overview of technical capabilities.
+
+### 4. Terminal (CLI)
+- **Interactive Shell:** Type commands like `help`, `skills`, `projects`.
+- **System Logs:** Real-time activity feed.
+
+### 5. The Arsenal (Projects)
+- **Project Modules:** Selectable project cards.
+- **Inquiry Builder:** "Add to Cart" style project selection for inquiries.
+
+## 🛠️ Tech Stack
 - **Framework:** Next.js 15 (App Router)
 - **Styling:** Tailwind CSS v4
+- **3D/Graphics:** React Three Fiber, Drei, Three.js
 - **Animation:** Framer Motion
 - **Icons:** Lucide React
 
-## Getting Started
+## 🚀 Getting Started
 
-First, run the development server:
+1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Run Development Server:**
+   ```bash
+   npm run dev
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Build for Production:**
+   ```bash
+   npm run build
+   ```
 
-## Project Structure
+## 📂 Project Structure
+- `src/components/BrainViewer.tsx`: 3D Neural Network component.
+- `src/components/TerminalSection.tsx`: Interactive CLI.
+- `src/components/ProjectsSection.tsx`: Project grid and builder.
+- `src/components/DataHub.tsx`: Stats and heatmap.
 
-- `src/app/page.tsx`: The main landing page (Hero section).
-- `src/components/Navbar.tsx`: The navigation bar.
-- `src/components/Hero.tsx`: The hero section with animations.
-- `src/app/globals.css`: Global styles and Tailwind configuration (Neon colors).
-
-## Customization
-
-You can adjust the colors in `src/app/globals.css` by modifying the `--lando-yellow` variable.
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
+*Transformed from Lando Norris Fan Site Concept*
 
 ## Learn More
 
