@@ -2,7 +2,7 @@ import Hero from "@/components/Hero";
 import DataHub from "@/components/DataHub";
 import NeuralNetwork from "@/components/NeuralNetwork";
 import TerminalSection from "@/components/TerminalSection";
-import MerchSection from "@/components/MerchSection";
+import ProjectsSection from "@/components/ProjectsSection";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <DataHub />
       <NeuralNetwork />
       <TerminalSection />
-      <MerchSection />
+      <ProjectsSection />
       
       {/* Placeholder for other sections */}
       <section id="career" className="h-screen flex items-center justify-center border-t border-white/10">

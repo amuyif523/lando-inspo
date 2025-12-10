@@ -1,26 +1,24 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShoppingBag, Trash2 } from "lucide-react";
+import { X, FolderPlus, Trash2, Send } from "lucide-react";
 
-interface CartItem {
+interface Project {
   id: number;
   name: string;
-  price: number;
-  image: string;
-  size: string;
+  description: string;
+  tech: string[];
+  category: string;
 }
 
-interface CartDrawerProps {
+interface ProjectBuilderProps {
   isOpen: boolean;
   onClose: () => void;
-  items: CartItem[];
-  onRemoveItem: (id: number) => void;
+  projects: Project[];
+  onRemoveProject: (id: number) => void;
 }
 
-export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: CartDrawerProps) {
-  const total = items.reduce((sum, item) => sum + item.price, 0);
-
+export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProject }: ProjectBuilderProps) {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -45,8 +43,8 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
             {/* Header */}
             <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h2 className="text-xl font-black italic uppercase flex items-center gap-2">
-                <ShoppingBag className="text-cyan" />
-                Your Cart <span className="text-gray-500 text-sm not-italic font-normal">({items.length})</span>
+                <FolderPlus className="text-cyan" />
+                Selected Modules <span className="text-gray-500 text-sm not-italic font-normal">({projects.length})</span>
               </h2>
               <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
                 <X size={20} />
@@ -55,39 +53,38 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
 
             {/* Items */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              {items.length === 0 ? (
+              {projects.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-gray-500 gap-4">
-                  <ShoppingBag size={48} className="opacity-20" />
-                  <p className="uppercase tracking-widest text-sm">Your cart is empty</p>
+                  <FolderPlus size={48} className="opacity-20" />
+                  <p className="uppercase tracking-widest text-sm">No modules selected</p>
                 </div>
               ) : (
-                items.map((item) => (
+                projects.map((project) => (
                   <motion.div
                     layout
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, x: -20 }}
-                    key={item.id}
+                    key={project.id}
                     className="flex gap-4 bg-white/5 p-4 rounded-xl border border-white/5"
                   >
-                    <div className="w-20 h-20 bg-white/10 rounded-lg overflow-hidden relative flex-shrink-0">
-                      <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                    </div>
                     <div className="flex-1 flex flex-col justify-between">
                       <div>
-                        <h3 className="font-bold uppercase text-sm">{item.name}</h3>
-                        <p className="text-xs text-gray-400">Size: {item.size}</p>
-                      </div>
-                      <div className="flex justify-between items-center">
-                        <span className="font-mono text-cyan">£{item.price}</span>
-                        <button 
-                          onClick={() => onRemoveItem(item.id)}
-                          className="text-gray-500 hover:text-red-500 transition-colors"
-                        >
-                          <Trash2 size={16} />
-                        </button>
+                        <h3 className="font-bold uppercase text-sm text-white">{project.name}</h3>
+                        <p className="text-xs text-gray-400 mb-2">{project.category}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {project.tech.map(t => (
+                            <span key={t} className="text-[10px] bg-black/50 px-1.5 py-0.5 rounded text-gray-500">{t}</span>
+                          ))}
+                        </div>
                       </div>
                     </div>
+                    <button 
+                      onClick={() => onRemoveProject(project.id)}
+                      className="text-gray-500 hover:text-red-500 transition-colors self-start"
+                    >
+                      <Trash2 size={16} />
+                    </button>
                   </motion.div>
                 ))
               )}
@@ -95,15 +92,9 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
 
             {/* Footer */}
             <div className="p-6 border-t border-white/10 bg-zinc-900">
-              <div className="flex justify-between items-center mb-6">
-                <span className="text-gray-400 uppercase text-sm tracking-widest">Total</span>
-                <span className="text-2xl font-black italic">£{total}</span>
-              </div>
-              <button 
-                disabled={items.length === 0}
-                className="w-full bg-cyan text-black py-4 font-black uppercase tracking-widest hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Checkout
+              <button className="w-full py-4 bg-cyan text-black font-black uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2">
+                <Send size={18} />
+                Initiate Inquiry
               </button>
             </div>
           </motion.div>
