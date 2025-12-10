@@ -7,9 +7,9 @@ import { useState } from "react";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Career", href: "#career" },
-  { name: "Merch", href: "#merch" },
-  { name: "Partners", href: "#partners" },
+  { name: "Skills", href: "#skills" },
+  { name: "Projects", href: "#projects" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -19,8 +19,8 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-black tracking-tighter italic">
-          LN<span className="text-lando">4</span>
+        <Link href="/" className="text-2xl font-black tracking-tighter">
+          AF<span className="text-cyan">.</span>
         </Link>
 
         {/* Desktop Links */}
@@ -29,13 +29,13 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-bold uppercase tracking-widest hover:text-lando transition-colors"
+              className="text-sm font-bold uppercase tracking-widest hover:text-cyan transition-colors"
             >
               {link.name}
             </Link>
           ))}
-          <button className="bg-lando text-black px-6 py-2 font-bold uppercase text-sm skew-x-[-10deg] hover:bg-white transition-colors">
-            <span className="block skew-x-[10deg]">Shop Now</span>
+          <button className="bg-cyan text-black px-6 py-2 font-bold uppercase text-sm hover:bg-white transition-colors">
+            <span className="block">Initialize</span>
           </button>
         </div>
 
@@ -59,7 +59,7 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-xl font-bold uppercase tracking-widest hover:text-lando"
+              className="text-xl font-bold uppercase tracking-widest hover:text-cyan"
               onClick={() => setIsOpen(false)}
             >
               {link.name}
@@ -70,3 +70,5 @@ export default function Navbar() {
     </nav>
   );
 }
+
+

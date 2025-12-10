@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 export default function Hero() {
   const ref = useRef(null);
@@ -17,51 +18,92 @@ export default function Hero() {
     <section ref={ref} className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-20">
       {/* Background Elements */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-lando/20 via-black to-black" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-30 bg-[length:50px_50px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/10 via-black to-black" />
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-[length:50px_50px]" />
+        {/* Cyberpunk Glow */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000" />
       </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+        
+        {/* Text Content */}
+        <div className="flex-1 text-center md:text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <h2 className="text-cyan font-mono font-bold tracking-widest uppercase mb-6 text-sm md:text-base">
+              &lt;System.Initialize /&gt;
+            </h2>
+            <h1 className="text-5xl md:text-8xl font-black tracking-tighter mb-6 leading-[0.9]">
+              AMANUEL
+              <br />
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan via-white to-purple">
+                FIKREMARIAM
+              </span>
+            </h1>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+            className="text-xl md:text-2xl text-gray-400 max-w-xl mb-10 font-light leading-relaxed"
+          >
+            AI Architect. Machine Learning Engineer. <br/>
+            <span className="text-white font-medium">Building the brain of tomorrow.</span>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.5 }}
+            className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center"
+          >
+            <button className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant">
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative block">Initialize System</span>
+            </button>
+            <button className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300">
+              <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
+            </button>
+          </motion.div>
+        </div>
+
+        {/* Profile Image */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          transition={{ delay: 0.2, duration: 1.2 }}
+          className="flex-1 relative w-full max-w-lg aspect-square md:aspect-4/5"
         >
-          <h2 className="text-lando font-bold tracking-[0.5em] uppercase mb-6 text-sm md:text-base">
-            McLaren Formula 1 Driver
-          </h2>
-          <h1 className="text-7xl md:text-[12rem] font-black italic tracking-tighter mb-8 leading-[0.8] mix-blend-difference">
-            LANDO
-            <br />
-            <span className="text-transparent bg-clip-text bg-linear-to-b from-white to-gray-500">
-              NORRIS
-            </span>
-          </h1>
+          <div className="absolute inset-0 bg-linear-to-tr from-cyan to-purple opacity-20 rounded-2xl blur-2xl -z-10" />
+          <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 bg-black/50 backdrop-blur-sm">
+             <Image 
+              src="/amanuel.png" 
+              alt="Amanuel Fikremariam" 
+              fill
+              className="object-cover object-center hover:scale-105 transition-transform duration-700"
+              priority
+            />
+            {/* HUD Overlay */}
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10 bg-size-[20px_20px] pointer-events-none" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/90 to-transparent">
+              <div className="flex justify-between items-end">
+                <div className="font-mono text-xs text-cyan">
+                  STATUS: ONLINE<br/>
+                  LOC: UNKNOWN
+                </div>
+                <div className="h-1 w-24 bg-purple/50 overflow-hidden">
+                  <div className="h-full w-full bg-purple animate-progress origin-left" />
+                </div>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-          className="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-12 font-light"
-        >
-          Pushing the limits. Breaking the grid.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="flex flex-col md:flex-row gap-6 justify-center items-center"
-        >
-          <button className="group relative bg-lando text-black px-10 py-4 font-black uppercase text-lg skew-x-[-10deg] hover:bg-white transition-all duration-300 overflow-hidden">
-            <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-            <span className="relative block skew-x-[10deg]">View Stats</span>
-          </button>
-          <button className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-10 py-4 font-black uppercase text-lg skew-x-[-10deg] hover:bg-white/10 transition-all duration-300">
-            <span className="block skew-x-[10deg] group-hover:scale-110 transition-transform">Latest Merch</span>
-          </button>
-        </motion.div>
       </div>
 
       {/* Scroll Indicator */}
@@ -71,11 +113,13 @@ export default function Hero() {
         transition={{ delay: 1.2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500 animate-pulse">
-          Scroll to Start
+        <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-gray-500 animate-pulse">
+          Scroll to Access Data
         </span>
-        <div className="w-px h-16 bg-linear-to-b from-lando to-transparent opacity-50" />
+        <div className="w-px h-16 bg-linear-to-b from-cyan to-transparent opacity-50" />
       </motion.div>
     </section>
   );
 }
+
+
