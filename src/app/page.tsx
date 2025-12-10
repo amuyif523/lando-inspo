@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import RaceHub from "@/components/RaceHub";
 import HelmetGallery from "@/components/HelmetGallery";
 import StreamerSection from "@/components/StreamerSection";
+import MerchSection from "@/components/MerchSection";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <RaceHub />
       <HelmetGallery />
       <StreamerSection />
+      <MerchSection />
       
       {/* Placeholder for other sections */}
       <section id="career" className="h-screen flex items-center justify-center border-t border-white/10">
