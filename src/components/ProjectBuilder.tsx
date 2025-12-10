@@ -2,14 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FolderPlus, Trash2, Send } from "lucide-react";
-
-interface Project {
-  id: number;
-  name: string;
-  description: string;
-  tech: string[];
-  category: string;
-}
+import type { Project } from "@/content/projects";
 
 interface ProjectBuilderProps {
   isOpen: boolean;

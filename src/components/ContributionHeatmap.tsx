@@ -2,20 +2,25 @@
 
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { fetchContributionData, type ContributionHeatmap as ContributionData } from "@/lib/data";
 
 export default function ContributionHeatmap() {
-  // Generate dummy data for the heatmap (52 weeks x 7 days)
   const weeks = 52;
   const days = 7;
-  const [contributions, setContributions] = useState<number[]>(Array(weeks * days).fill(0));
+  const [data, setData] = useState<ContributionData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Randomize data on client-side only to avoid hydration mismatch
-    // Using setTimeout to avoid "setState synchronously within an effect" warning
-    const timer = setTimeout(() => {
-      setContributions(Array.from({ length: weeks * days }, () => Math.floor(Math.random() * 5)));
-    }, 0);
-    return () => clearTimeout(timer);
+    let mounted = true;
+    fetchContributionData().then((result) => {
+      if (mounted) {
+        setData(result);
+        setLoading(false);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const getColor = (level: number) => {
@@ -46,7 +51,7 @@ export default function ContributionHeatmap() {
         {Array.from({ length: weeks }).map((_, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-1">
             {Array.from({ length: days }).map((_, dayIndex) => {
-              const level = contributions[weekIndex * days + dayIndex];
+              const level = data?.days[weekIndex * days + dayIndex] ?? 0;
               return (
                 <motion.div
                   key={dayIndex}
@@ -68,11 +73,20 @@ export default function ContributionHeatmap() {
           <span className="text-xs font-mono text-cyan uppercase tracking-widest">System Activity</span>
         </div>
         <h3 className="text-xl font-bold uppercase mt-1">Contribution Graph</h3>
+        {loading ? (
+          <p className="text-xs text-gray-500 mt-2">Loading contributions...</p>
+        ) : (
+          <p className="text-xs text-gray-500 mt-2">
+            Streak: <span className="text-cyan font-semibold">{data?.streak ?? 0} days</span>
+          </p>
+        )}
       </div>
 
       <div className="absolute bottom-4 right-4 text-right">
         <div className="text-xs font-mono text-gray-500">TOTAL COMMITS</div>
-        <div className="text-lg font-bold text-cyan">1,248</div>
+        <div className="text-lg font-bold text-cyan">
+          {loading ? "…" : data?.total ?? "—"}
+        </div>
       </div>
     </div>
   );

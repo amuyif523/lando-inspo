@@ -1,11 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Countdown from "./Countdown";
 import ContributionHeatmap from "./ContributionHeatmap";
-import { GitGraph, Cpu, Database, Terminal } from "lucide-react";
+import { GitGraph, Cpu, Database } from "lucide-react";
+import { fetchActivityStats } from "@/lib/data";
+import { fallbackActivityStats } from "@/content/stats";
 
 export default function DataHub() {
-  // Simulated "Next Project Launch" date (e.g., 2 weeks from now)
   const nextLaunchDate = new Date();
   nextLaunchDate.setDate(nextLaunchDate.getDate() + 14);
+
+  const [stats, setStats] = useState(fallbackActivityStats);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+    fetchActivityStats().then((result) => {
+      if (mounted) {
+        setStats(result);
+        setLoading(false);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   return (
     <section id="data-hub" className="py-24 bg-black relative overflow-hidden">
@@ -27,15 +47,17 @@ export default function DataHub() {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
               <GitGraph className="text-cyan" />
-              <span>1,248 Commits this year</span>
+              <span>
+                {loading ? "Syncing commits..." : `${stats.commitsThisYear} Commits this year`}
+              </span>
             </div>
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
               <Cpu className="text-cyan" />
-              <span>99.9% System Uptime</span>
+              <span>{stats.uptime} System Uptime</span>
             </div>
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
               <Database className="text-cyan" />
-              <span>50TB Data Processed</span>
+              <span>{loading ? "Calculating repositories..." : `${stats.repositories} Repositories monitored`}</span>
             </div>
           </div>
 
@@ -54,11 +76,15 @@ export default function DataHub() {
           <div className="grid grid-cols-2 gap-4 mt-4">
             <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
               <div className="text-xs font-bold uppercase text-gray-500 mb-2">Current Streak</div>
-              <div className="text-3xl font-black text-cyan">42 Days</div>
+              <div className="text-3xl font-black text-cyan">
+                {loading ? "…" : `${stats.currentStreak} Days`}
+              </div>
             </div>
             <div className="bg-white/5 border border-white/10 p-6 rounded-xl">
               <div className="text-xs font-bold uppercase text-gray-500 mb-2">Total Repos</div>
-              <div className="text-3xl font-black text-purple">86</div>
+              <div className="text-3xl font-black text-purple">
+                {loading ? "…" : stats.repositories}
+              </div>
             </div>
           </div>
         </div>

@@ -3,45 +3,7 @@
 import { useState } from "react";
 import { FolderPlus } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
-
-interface Project {
-  id: number;
-  name: string;
-  description: string;
-  tech: string[];
-  category: string;
-}
-
-const projects: Project[] = [
-  {
-    id: 1,
-    name: "AI Chatbot",
-    description: "Conversational agent powered by LLMs.",
-    tech: ["Python", "OpenAI", "React"],
-    category: "AI/ML",
-  },
-  {
-    id: 2,
-    name: "Vision System",
-    description: "Real-time object detection pipeline.",
-    tech: ["OpenCV", "YOLO", "FastAPI"],
-    category: "Computer Vision",
-  },
-  {
-    id: 3,
-    name: "Data Pipeline",
-    description: "Automated ETL workflow for big data.",
-    tech: ["Apache Airflow", "Pandas", "AWS"],
-    category: "Data Engineering",
-  },
-  {
-    id: 4,
-    name: "Portfolio V2",
-    description: "Next.js portfolio with 3D elements.",
-    tech: ["Next.js", "Three.js", "Tailwind"],
-    category: "Web Dev",
-  },
-];
+import { projects, type Project } from "@/content/projects";
 
 export default function ProjectsSection() {
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
