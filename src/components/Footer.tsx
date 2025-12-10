@@ -1,11 +1,10 @@
 import Link from "next/link";
-import { Twitter, Instagram, Youtube, Twitch } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
 
 const socialLinks = [
-  { name: "Instagram", icon: Instagram, href: "https://instagram.com/landonorris" },
-  { name: "Twitter", icon: Twitter, href: "https://twitter.com/landonorris" },
-  { name: "Twitch", icon: Twitch, href: "https://twitch.tv/landonorris" },
-  { name: "YouTube", icon: Youtube, href: "https://youtube.com/landonorris" },
+  { name: "GitHub", icon: Github, href: "https://github.com/amanuel-fikremariam" },
+  { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com/in/amanuel-fikremariam" },
+  { name: "Email", icon: Mail, href: "mailto:hello@amanuel.dev" },
 ];
 
 export default function Footer() {
@@ -15,11 +14,9 @@ export default function Footer() {
         
         {/* Brand */}
         <div className="flex flex-col items-center md:items-start gap-2">
-          <h2 className="text-3xl font-black italic tracking-tighter">
-            LN<span className="text-cyan">4</span>
-          </h2>
+          <h2 className="text-3xl font-black italic tracking-tighter">AF<span className="text-cyan">.</span></h2>
           <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Lando Norris. All rights reserved.
+            (c) {new Date().getFullYear()} Amanuel Fikremariam. All rights reserved.
           </p>
         </div>
 
@@ -43,18 +40,16 @@ export default function Footer() {
         <div className="flex gap-6 text-sm font-bold uppercase tracking-widest text-gray-500">
           <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
           <Link href="#" className="hover:text-white transition-colors">Terms</Link>
-          <Link href="#" className="hover:text-white transition-colors">Contact</Link>
+          <Link href="#projects" className="hover:text-white transition-colors">Projects</Link>
         </div>
       </div>
       
       {/* Big Background Text */}
       <div className="absolute bottom-0 left-0 right-0 pointer-events-none select-none overflow-hidden flex justify-center opacity-[0.02]">
         <span className="text-[20vw] font-black leading-none text-white whitespace-nowrap">
-          LANDO NORRIS
+          AMANUEL FIKREMARIAM
         </span>
       </div>
     </footer>
   );
 }
-
-

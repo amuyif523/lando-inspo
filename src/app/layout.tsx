@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Lando Norris | LN4",
-  description: "Official fan site concept for Lando Norris.",
+  title: "Amanuel Fikremariam | Neural Architect",
+  description: "Portfolio for Amanuel Fikremariam — AI architect, machine learning engineer, and data systems builder.",
 };
 
 export default function RootLayout({

@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
+import Link from "next/link";
 import ParticleBackground from "./ParticleBackground";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
@@ -18,7 +19,11 @@ export default function Hero() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-20">
+    <section
+      id="home"
+      ref={ref}
+      className="relative h-screen w-full flex items-center justify-center overflow-hidden pt-20"
+    >
       <AnimatePresence>
         {isBooting && <BootSequence onComplete={() => setIsBooting(false)} />}
       </AnimatePresence>
@@ -77,9 +82,12 @@ export default function Hero() {
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <span className="relative block">Initialize System</span>
             </button>
-            <button className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300">
+            <Link
+              href="#projects"
+              className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300"
+            >
               <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
-            </button>
+            </Link>
           </motion.div>
         </div>
 

@@ -6,10 +6,12 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 
 const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Skills", href: "#skills" },
+  { name: "Home", href: "#home" },
+  { name: "Data", href: "#data-hub" },
+  { name: "Neural Core", href: "#neural-core" },
+  { name: "Terminal", href: "#terminal" },
   { name: "Projects", href: "#projects" },
-  { name: "Contact", href: "#contact" },
+  { name: "Career", href: "#career" },
 ];
 
 export default function Navbar() {
