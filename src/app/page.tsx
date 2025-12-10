@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import DataHub from "@/components/DataHub";
-import HelmetGallery from "@/components/HelmetGallery";
+import NeuralNetwork from "@/components/NeuralNetwork";
 import StreamerSection from "@/components/StreamerSection";
 import MerchSection from "@/components/MerchSection";
 
@@ -9,7 +9,7 @@ export default function Home() {
     <main className="min-h-screen bg-black text-white overflow-hidden">
       <Hero />
       <DataHub />
-      <HelmetGallery />
+      <NeuralNetwork />
       <StreamerSection />
       <MerchSection />
       
