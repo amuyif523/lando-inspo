@@ -1,5 +1,5 @@
 import Hero from "@/components/Hero";
-import RaceHub from "@/components/RaceHub";
+import DataHub from "@/components/DataHub";
 import HelmetGallery from "@/components/HelmetGallery";
 import StreamerSection from "@/components/StreamerSection";
 import MerchSection from "@/components/MerchSection";
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
       <Hero />
-      <RaceHub />
+      <DataHub />
       <HelmetGallery />
       <StreamerSection />
       <MerchSection />
