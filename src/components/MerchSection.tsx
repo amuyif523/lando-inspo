@@ -82,7 +82,7 @@ export default function MerchSection() {
               </span>
             </div>
             <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
-              Latest <span className="text-transparent bg-clip-text bg-linear-to-r from-lando to-white">Drop</span>
+              Latest <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-white">Drop</span>
             </h2>
           </div>
 
@@ -92,7 +92,7 @@ export default function MerchSection() {
           >
             <ShoppingBag className="text-white" />
             {cartItems.length > 0 && (
-              <div className="absolute -top-1 -right-1 w-5 h-5 bg-lando rounded-full flex items-center justify-center text-[10px] font-bold text-black">
+              <div className="absolute -top-1 -right-1 w-5 h-5 bg-cyan rounded-full flex items-center justify-center text-[10px] font-bold text-black">
                 {cartItems.length}
               </div>
             )}
@@ -112,7 +112,7 @@ export default function MerchSection() {
             <h3 className="text-4xl md:text-6xl font-black italic uppercase text-white mb-6">
               Season 04
             </h3>
-            <button className="bg-white text-black px-8 py-3 font-bold uppercase rounded-full hover:bg-lando transition-colors">
+            <button className="bg-white text-black px-8 py-3 font-bold uppercase rounded-full hover:bg-cyan transition-colors">
               View Lookbook
             </button>
           </div>
@@ -132,3 +132,5 @@ export default function MerchSection() {
     </section>
   );
 }
+
+

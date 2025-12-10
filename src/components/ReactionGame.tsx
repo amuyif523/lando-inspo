@@ -45,7 +45,7 @@ export default function ReactionGame() {
       {/* Header */}
       <div className="p-6 border-b border-white/10 flex justify-between items-center">
         <h3 className="font-bold uppercase tracking-widest text-white flex items-center gap-2">
-          <Zap size={16} className="text-lando" />
+          <Zap size={16} className="text-cyan" />
           Reaction Test
         </h3>
         <div className="text-xs text-gray-500 font-mono">F1 DRIVER AVG: 200ms</div>
@@ -116,3 +116,5 @@ export default function ReactionGame() {
     </div>
   );
 }
+
+

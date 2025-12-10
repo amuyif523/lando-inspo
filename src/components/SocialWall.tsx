@@ -43,7 +43,7 @@ export default function SocialWall() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
-          className="bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 hover:border-lando/50 transition-colors group"
+          className="bg-zinc-900 rounded-2xl overflow-hidden border border-white/5 hover:border-cyan/50 transition-colors group"
         >
           {post.type === "instagram" && (
             <div className="relative aspect-square">
@@ -108,3 +108,5 @@ export default function SocialWall() {
     </div>
   );
 }
+
+

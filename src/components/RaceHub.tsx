@@ -23,8 +23,8 @@ export default async function RaceHub() {
       {/* Section Header */}
       <div className="container mx-auto px-6 mb-16">
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-1 bg-lando" />
-          <span className="text-lando font-bold uppercase tracking-widest">Next Grand Prix</span>
+          <div className="w-12 h-1 bg-cyan" />
+          <span className="text-cyan font-bold uppercase tracking-widest">Next Grand Prix</span>
         </div>
         <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter">
           {race.raceName}
@@ -37,15 +37,15 @@ export default async function RaceHub() {
           {/* Race Details */}
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <MapPin className="text-lando" />
+              <MapPin className="text-cyan" />
               <span>{race.Circuit.circuitName}, {race.Circuit.Location.country}</span>
             </div>
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <Calendar className="text-lando" />
+              <Calendar className="text-cyan" />
               <span>{raceDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</span>
             </div>
             <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <Clock className="text-lando" />
+              <Clock className="text-cyan" />
               <span>{raceDate.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })} Local</span>
             </div>
           </div>
@@ -77,3 +77,5 @@ export default async function RaceHub() {
     </section>
   );
 }
+
+

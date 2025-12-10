@@ -36,7 +36,7 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
         {/* Quick Add Button */}
         <button 
           onClick={() => onAddToCart(product)}
-          className="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-lando"
+          className="absolute bottom-4 right-4 bg-white text-black p-3 rounded-full opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 hover:bg-cyan"
         >
           <Plus size={20} />
         </button>
@@ -52,3 +52,5 @@ export default function ProductCard({ product, onAddToCart }: ProductCardProps) 
     </motion.div>
   );
 }
+
+

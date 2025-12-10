@@ -45,20 +45,20 @@ export default function HelmetGallery() {
         {/* Header */}
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-lando" />
-            <span className="text-lando font-bold uppercase tracking-widest">
+            <div className="w-12 h-1 bg-cyan" />
+            <span className="text-cyan font-bold uppercase tracking-widest">
               The Collection
             </span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
-            Helmet <span className="text-transparent bg-clip-text bg-linear-to-r from-lando to-white">Hall of Fame</span>
+            Helmet <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-white">Hall of Fame</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-center">
           {/* Left: 3D Viewer */}
           <div className="lg:col-span-2 relative">
-            <div className="absolute inset-0 bg-linear-to-r from-lando/5 to-transparent rounded-full blur-3xl" />
+            <div className="absolute inset-0 bg-linear-to-r from-cyan/5 to-transparent rounded-full blur-3xl" />
             <div className="relative z-10 bg-white/5 border border-white/10 rounded-3xl overflow-hidden backdrop-blur-sm">
               <HelmetViewer color={selectedHelmet.color} />
               
@@ -89,7 +89,7 @@ export default function HelmetGallery() {
                 onClick={() => setSelectedHelmet(helmet)}
                 className={`group relative p-6 rounded-xl border text-left transition-all duration-300 ${
                   selectedHelmet.id === helmet.id
-                    ? "bg-white/10 border-lando"
+                    ? "bg-white/10 border-cyan"
                     : "bg-black/40 border-white/10 hover:border-white/30"
                 }`}
               >
@@ -100,7 +100,7 @@ export default function HelmetGallery() {
                   {selectedHelmet.id === helmet.id && (
                     <motion.div
                       layoutId="active-indicator"
-                      className="w-2 h-2 rounded-full bg-lando"
+                      className="w-2 h-2 rounded-full bg-cyan"
                     />
                   )}
                 </div>
@@ -109,7 +109,7 @@ export default function HelmetGallery() {
                 }`}>
                   {helmet.name}
                 </h4>
-                <div className="flex items-center gap-2 text-sm text-lando opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center gap-2 text-sm text-cyan opacity-0 group-hover:opacity-100 transition-opacity">
                   <span>View Model</span>
                   <ChevronRight size={14} />
                 </div>
@@ -121,3 +121,5 @@ export default function HelmetGallery() {
     </section>
   );
 }
+
+

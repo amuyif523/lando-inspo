@@ -16,7 +16,7 @@ export default function Footer() {
         {/* Brand */}
         <div className="flex flex-col items-center md:items-start gap-2">
           <h2 className="text-3xl font-black italic tracking-tighter">
-            LN<span className="text-lando">4</span>
+            LN<span className="text-cyan">4</span>
           </h2>
           <p className="text-gray-500 text-sm">
             © {new Date().getFullYear()} Lando Norris. All rights reserved.
@@ -31,7 +31,7 @@ export default function Footer() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-lando transition-colors transform hover:scale-110"
+              className="text-gray-400 hover:text-cyan transition-colors transform hover:scale-110"
             >
               <social.icon size={24} />
               <span className="sr-only">{social.name}</span>
@@ -56,3 +56,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+

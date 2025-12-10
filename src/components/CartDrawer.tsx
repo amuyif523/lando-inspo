@@ -45,7 +45,7 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
             {/* Header */}
             <div className="p-6 border-b border-white/10 flex justify-between items-center">
               <h2 className="text-xl font-black italic uppercase flex items-center gap-2">
-                <ShoppingBag className="text-lando" />
+                <ShoppingBag className="text-cyan" />
                 Your Cart <span className="text-gray-500 text-sm not-italic font-normal">({items.length})</span>
               </h2>
               <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
@@ -79,7 +79,7 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
                         <p className="text-xs text-gray-400">Size: {item.size}</p>
                       </div>
                       <div className="flex justify-between items-center">
-                        <span className="font-mono text-lando">£{item.price}</span>
+                        <span className="font-mono text-cyan">£{item.price}</span>
                         <button 
                           onClick={() => onRemoveItem(item.id)}
                           className="text-gray-500 hover:text-red-500 transition-colors"
@@ -101,7 +101,7 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
               </div>
               <button 
                 disabled={items.length === 0}
-                className="w-full bg-lando text-black py-4 font-black uppercase tracking-widest hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-cyan text-black py-4 font-black uppercase tracking-widest hover:bg-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Checkout
               </button>
@@ -112,3 +112,5 @@ export default function CartDrawer({ isOpen, onClose, items, onRemoveItem }: Car
     </AnimatePresence>
   );
 }
+
+
