@@ -60,6 +60,11 @@ function NeuralAtlas() {
   const colorsRef = useRef<THREE.BufferAttribute | null>(null);
   const signalsRef = useRef<THREE.InstancedMesh>(null);
   const [hovered, setHovered] = useState<number | null>(null);
+  const signalGeometry = useMemo(() => new THREE.SphereGeometry(0.04, 8, 8), []);
+  const signalMaterial = useMemo(
+    () => new THREE.MeshStandardMaterial({ color: "#ffffff", emissive: "#00F0FF", emissiveIntensity: 2 }),
+    []
+  );
 
   // Precompute signal travel data
   const signals = useMemo(() => {
@@ -156,9 +161,9 @@ function NeuralAtlas() {
       </Instances>
 
       {/* Signal particles */}
-      <instancedMesh ref={signalsRef} args={[undefined, undefined, SIGNAL_COUNT]}>
-        <sphereGeometry args={[0.04, 8, 8]} />
-        <meshBasicMaterial color="#ffffff" emissive="#00F0FF" emissiveIntensity={2} />
+      <instancedMesh ref={signalsRef} args={[signalGeometry, signalMaterial, SIGNAL_COUNT]}>
+        <primitive object={signalGeometry} attach="geometry" />
+        <primitive object={signalMaterial} attach="material" />
       </instancedMesh>
 
       {/* Background glow planes */}
