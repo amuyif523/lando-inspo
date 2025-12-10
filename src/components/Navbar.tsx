@@ -10,8 +10,10 @@ const navLinks = [
   { name: "Data", href: "#data-hub" },
   { name: "Neural Core", href: "#neural-core" },
   { name: "Terminal", href: "#terminal" },
+  { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Career", href: "#career" },
+  { name: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {

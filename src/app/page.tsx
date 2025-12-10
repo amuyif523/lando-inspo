@@ -3,6 +3,9 @@ import DataHub from "@/components/DataHub";
 import NeuralNetwork from "@/components/NeuralNetwork";
 import TerminalSection from "@/components/TerminalSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import SkillsSection from "@/components/SkillsSection";
+import CareerSection from "@/components/CareerSection";
+import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   return (
@@ -12,13 +15,10 @@ export default function Home() {
       <NeuralNetwork />
       <TerminalSection />
       <ProjectsSection />
-      
-      {/* Placeholder for other sections */}
-      <section id="career" className="h-screen flex items-center justify-center border-t border-white/10">
-        <h2 className="text-4xl font-bold text-gray-800 uppercase">Career Stats Coming Soon</h2>
-      </section>
+      <SkillsSection />
+      <CareerSection />
+      <ContactSection />
     </main>
   );
 }
-
 

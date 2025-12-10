@@ -6,6 +6,7 @@
   --neon-cyan: #00F0FF;
   --neon-purple: #BD00FF;
   --dark-surface: #0A0A0A;
+  --gradient-accent: linear-gradient(90deg, var(--neon-cyan) 0%, #ffffff 50%, var(--neon-purple) 100%);
 }
 
 @theme inline {
@@ -23,6 +24,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+.display-font,
+h1, h2, h3 {
+  font-family: var(--font-display), var(--font-sans), Arial, Helvetica, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 ::selection {
