@@ -3,15 +3,17 @@
 :root {
   --background: #050505;
   --foreground: #ededed;
-  --lando-yellow: #D4F711;
-  --lando-dark: #111111;
+  --neon-cyan: #00F0FF;
+  --neon-purple: #BD00FF;
+  --dark-surface: #0A0A0A;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-lando: var(--lando-yellow);
-  --color-dark-surface: var(--lando-dark);
+  --color-cyan: var(--neon-cyan);
+  --color-purple: var(--neon-purple);
+  --color-dark-surface: var(--dark-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -24,6 +26,6 @@ body {
 }
 
 ::selection {
-  background-color: var(--lando-yellow);
+  background-color: var(--neon-cyan);
   color: #000000;
 }
