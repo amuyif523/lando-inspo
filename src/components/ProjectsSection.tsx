@@ -4,10 +4,12 @@ import { useState } from "react";
 import { FolderPlus } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
 import { projects, type Project } from "@/content/projects";
+import { contactChannels } from "@/content/profile";
 
 export default function ProjectsSection() {
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState<Project[]>([]);
+  const [builderError, setBuilderError] = useState<string | null>(null);
 
   const addToBuilder = (project: Project) => {
     if (!selectedProjects.find(p => p.id === project.id)) {
@@ -20,6 +22,28 @@ export default function ProjectsSection() {
     setSelectedProjects(selectedProjects.filter((p) => p.id !== id));
   };
 
+  const submitInquiry = async ({ email, message, modules }: { email: string; message: string; modules: string[] }) => {
+    setBuilderError(null);
+    const body = {
+      name: email, // using email as identifier here; main form collects name separately
+      email,
+      message,
+      modules,
+    };
+
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      setBuilderError(data.error || "Unable to send inquiry. Please try again.");
+      throw new Error(data.error || "Unable to send inquiry.");
+    }
+  };
+
   return (
     <section id="projects" className="py-24 bg-zinc-950 relative">
       <ProjectBuilder 
@@ -27,6 +51,7 @@ export default function ProjectsSection() {
         onClose={() => setIsBuilderOpen(false)} 
         projects={selectedProjects}
         onRemoveProject={removeFromBuilder}
+        onSubmit={submitInquiry}
       />
 
       <div className="container mx-auto px-6">
@@ -56,6 +81,12 @@ export default function ProjectsSection() {
             )}
           </button>
         </div>
+
+        {builderError && (
+          <div className="mb-6 text-sm text-red-400 bg-red-500/10 border border-red-500/30 rounded-lg p-3">
+            {builderError} — try the contact form or email {contactChannels[0].display}.
+          </div>
+        )}
 
         {/* Project Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

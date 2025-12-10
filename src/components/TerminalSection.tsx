@@ -20,7 +20,7 @@ const COMMANDS = {
   about: "Amanuel Fikremariam. AI Architect & Data Engineer. Building the future of intelligence.",
   skills: "Core Systems: Python, TensorFlow, PyTorch, Next.js, React, TypeScript.",
   projects: "Access denied. Please visit the 'Projects' section for visual clearance.",
-  contact: "Initiate communication protocol via email: amanuel@example.com",
+  contact: "Initiate communication protocol via email: hello@amanuel.dev or submit the contact form at #contact.",
   clear: "Clearing buffer...",
 };
 

@@ -3,8 +3,50 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { contactChannels, profile } from "@/content/profile";
+import { useState } from "react";
+
+type FormState = "idle" | "submitting" | "success" | "error";
 
 export default function ContactSection() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [formState, setFormState] = useState<FormState>("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    if (!name || !email || !message) {
+      setError("All fields are required.");
+      return;
+    }
+
+    setFormState("submitting");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, modules: [] }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Unable to submit. Please try again.");
+      }
+
+      setFormState("success");
+      setName("");
+      setEmail("");
+      setMessage("");
+    } catch (err) {
+      setFormState("error");
+      setError(err instanceof Error ? err.message : "Unable to submit. Please try again.");
+    }
+  };
+
   return (
     <section id="contact" className="py-24 bg-black relative overflow-hidden">
       <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
@@ -37,7 +79,7 @@ export default function ContactSection() {
           </div>
         </div>
 
-        {/* Right: Placeholder Form */}
+        {/* Right: Form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -50,11 +92,11 @@ export default function ContactSection() {
               <h3 className="text-2xl font-bold text-white">Discovery Form</h3>
             </div>
             <span className="text-[10px] px-2 py-1 rounded-full bg-cyan/20 text-cyan uppercase tracking-widest">
-              Draft
+              Live
             </span>
           </div>
 
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div className="flex gap-4">
               <label className="flex-1 text-sm text-gray-300">
                 Name
@@ -63,7 +105,9 @@ export default function ContactSection() {
                   type="text"
                   placeholder="Amanuel Fikremariam"
                   className="mt-1 w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:border-cyan outline-none"
-                  disabled
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
                 />
               </label>
               <label className="flex-1 text-sm text-gray-300">
@@ -73,7 +117,9 @@ export default function ContactSection() {
                   type="email"
                   placeholder="you@example.com"
                   className="mt-1 w-full bg-black/40 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:border-cyan outline-none"
-                  disabled
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
               </label>
             </div>
@@ -83,12 +129,15 @@ export default function ContactSection() {
                 aria-label="Project summary"
                 placeholder="What do you want to build?"
                 className="mt-1 w-full bg-black/40 border border-white/10 rounded-lg px-3 py-3 text-white placeholder-gray-500 focus:border-cyan outline-none min-h-[120px]"
-                disabled
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                required
               />
             </label>
-            <p className="text-xs text-gray-500">
-              Full form will be activated in the Contact sprint. For now, use the channels on the left.
-            </p>
+            {error && <p className="text-xs text-red-400">{error}</p>}
+            {formState === "success" && (
+              <p className="text-xs text-green-400">Message sent. I will get back to you shortly.</p>
+            )}
             <div className="flex gap-3">
               <Link
                 href={contactChannels[0].href}
@@ -97,11 +146,11 @@ export default function ContactSection() {
                 Email Amanuel
               </Link>
               <button
-                type="button"
-                className="flex-1 text-center border border-white/20 bg-white/5 text-white font-bold uppercase tracking-wider py-3 rounded-lg"
-                disabled
+                type="submit"
+                className="flex-1 text-center border border-white/20 bg-white/5 text-white font-bold uppercase tracking-wider py-3 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={formState === "submitting"}
               >
-                Submit Brief
+                {formState === "submitting" ? "Submitting..." : "Submit Brief"}
               </button>
             </div>
           </form>

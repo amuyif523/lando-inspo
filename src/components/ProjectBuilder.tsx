@@ -3,15 +3,40 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { X, FolderPlus, Trash2, Send } from "lucide-react";
 import type { Project } from "@/content/projects";
+import { useState } from "react";
 
 interface ProjectBuilderProps {
   isOpen: boolean;
   onClose: () => void;
   projects: Project[];
   onRemoveProject: (id: number) => void;
+  onSubmit?: (payload: { email: string; message: string; modules: string[] }) => Promise<void>;
 }
 
-export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProject }: ProjectBuilderProps) {
+export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProject, onSubmit }: ProjectBuilderProps) {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = async () => {
+    if (!onSubmit) return;
+    if (!email) {
+      setError("Email is required to initiate an inquiry.");
+      return;
+    }
+    setError(null);
+    setStatus("submitting");
+    try {
+      const message = `Interested in modules: ${projects.map((p) => p.name).join(", ")}`;
+      await onSubmit({ email, message, modules: projects.map((p) => p.name) });
+      setStatus("success");
+      setEmail("");
+    } catch (err) {
+      setStatus("error");
+      setError(err instanceof Error ? err.message : "Unable to send inquiry.");
+    }
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -85,9 +110,28 @@ export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProj
 
             {/* Footer */}
             <div className="p-6 border-t border-white/10 bg-zinc-900">
-              <button className="w-full py-4 bg-cyan text-black font-black uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2">
+              {projects.length > 0 && (
+                <div className="mb-3">
+                  <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Reply-To Email</label>
+                  <input
+                    aria-label="Reply-To Email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-black/60 border border-white/10 rounded-lg px-3 py-2 text-white placeholder-gray-500 focus:border-cyan outline-none"
+                    placeholder="you@example.com"
+                  />
+                </div>
+              )}
+              {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
+              {status === "success" && <p className="text-xs text-green-400 mb-2">Inquiry sent. I will reach out soon.</p>}
+              <button
+                onClick={handleSubmit}
+                className="w-full py-4 bg-cyan text-black font-black uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={projects.length === 0 || status === "submitting"}
+              >
                 <Send size={18} />
-                Initiate Inquiry
+                {status === "submitting" ? "Sending..." : "Initiate Inquiry"}
               </button>
             </div>
           </motion.div>
