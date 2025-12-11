@@ -1,6 +1,7 @@
 "use client";
 
 import clsx from "clsx";
+import CyberCard from "./CyberCard";
 
 interface StatCardProps {
   label: string;
@@ -11,16 +12,16 @@ interface StatCardProps {
 
 export default function StatCard({ label, value, tone = "cyan", detail }: StatCardProps) {
   const accentText = {
-    cyan: "text-[color:rgb(var(--glow-cyan-rgb))]",
-    purple: "text-[color:rgb(var(--glow-purple-rgb))]",
+    cyan: "text-cyan",
+    purple: "text-purple",
     white: "text-white",
   }[tone];
 
   return (
-    <div className="card-surface glow-card border rounded-xl p-6">
-      <div className="text-xs font-bold uppercase text-white/60 mb-2 tracking-widest">{label}</div>
-      <div className={clsx("text-3xl font-black leading-tight", accentText)}>{value}</div>
-      {detail && <div className="text-xs text-white/50 mt-1">{detail}</div>}
-    </div>
+    <CyberCard hoverEffect className="flex flex-col justify-center">
+      <div className="text-xs font-bold uppercase text-gray-400 mb-2 tracking-widest">{label}</div>
+      <div className={clsx("text-3xl font-black leading-tight font-display", accentText)}>{value}</div>
+      {detail && <div className="text-xs text-gray-500 mt-1">{detail}</div>}
+    </CyberCard>
   );
 }

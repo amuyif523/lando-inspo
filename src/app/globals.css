@@ -34,6 +34,11 @@
   --color-dark-surface: var(--dark-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+}
+
+.font-display {
+  font-family: var(--font-display), sans-serif;
 }
 
 body {

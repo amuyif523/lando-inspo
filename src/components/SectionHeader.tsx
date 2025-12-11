@@ -26,7 +26,7 @@ export default function SectionHeader({ eyebrow, title, highlight, accent = "cya
           {eyebrow}
         </span>
       </div>
-      <h2 className="text-5xl md:text-6xl font-black tracking-tighter display-font">
+      <h2 className="text-5xl md:text-6xl font-black tracking-tighter font-display">
         {title}{" "}
         {highlight && (
           <span className="text-transparent bg-clip-text" style={{ backgroundImage: "var(--gradient-accent)" }}>
