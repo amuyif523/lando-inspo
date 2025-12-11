@@ -17,15 +17,17 @@ export default function Hero() {
   const ref = useRef(null);
   const [isBooting, setIsBooting] = useState(false);
   const prefetchContact = useContactPrefetch();
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const profileTilt = useTransform(scrollYProgress, [0, 1], [0, -8]);
-  const sweepOffset = useTransform(scrollYProgress, [0, 1], ["-30%", "120%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, prefersReducedMotion ? 1 : 0]);
+  const profileTilt = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : -8]);
+  const sweepOffset = useTransform(scrollYProgress, [0, 1], ["-30%", "130%"]);
+  const driftX = useTransform(scrollYProgress, [0, 1], ["0%", prefersReducedMotion ? "0%" : "-4%"]);
 
   const tooltipCopy = useMemo(() => "Neural uplink stable", []);
 
@@ -49,7 +51,7 @@ export default function Hero() {
         <div className="glow-spot animate-pulse" data-color="purple" data-strength="soft" style={{ bottom: "18%", right: "18%" }} />
       </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12" style={{ x: driftX }}>
         
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
@@ -93,6 +95,9 @@ export default function Hero() {
             >
               <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <span className="relative block">Initialize System</span>
+              <span className="absolute -bottom-5 left-0 text-[10px] uppercase tracking-[0.25em] text-cyan/70">
+                {tooltipCopy}
+              </span>
             </button>
             <Link
               href="#projects"
@@ -117,9 +122,16 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.2, duration: 1.2 }}
           style={{ rotateX: profileTilt }}
-          className="flex-1 flex justify-center md:justify-end"
+          className="flex-1 flex justify-center md:justify-end relative"
         >
           <CyberpunkProfile />
+          {!prefersReducedMotion && (
+            <motion.div
+              aria-hidden
+              style={{ x: sweepOffset }}
+              className="pointer-events-none absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent mix-blend-screen"
+            />
+          )}
         </motion.div>
       </div>
 
@@ -138,5 +150,3 @@ export default function Hero() {
     </section>
   );
 }
-
-

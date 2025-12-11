@@ -23,7 +23,7 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   title: "Amanuel Fikremariam | Neural Architect",
-  description: "Portfolio for Amanuel Fikremariam â€” AI architect, machine learning engineer, and data systems builder.",
+  description: "Portfolio for Amanuel Fikremariam — AI architect, machine learning engineer, and data systems builder.",
   metadataBase: new URL("https://amanuel.dev"),
   openGraph: {
     title: "Amanuel Fikremariam | Neural Architect",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Amanuel Fikremariam â€” Neural Architect",
+        alt: "Amanuel Fikremariam — Neural Architect",
       },
     ],
     locale: "en_US",

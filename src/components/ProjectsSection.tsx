@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { FolderPlus, FileText, ShieldCheck, Sparkles } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
 import { projects, type Project } from "@/content/projects";
@@ -121,9 +122,12 @@ export default function ProjectsSection() {
 
         {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {projects.map((project) => (
-              <div
+            {projects.map((project, idx) => (
+              <motion.div
                 key={project.id}
+                initial={{ opacity: 0, y: 20, rotateX: -3 }}
+                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                transition={{ delay: idx * 0.05, duration: 0.4 }}
                 className="group relative card-surface glow-card border rounded-xl p-6 hover:border-[color:rgb(var(--glow-cyan-rgb))] transition-all duration-300 hover:shadow-[0_0_40px_rgba(var(--glow-cyan-rgb),0.16)]"
               >
                 <div className="mb-4">
@@ -151,12 +155,11 @@ export default function ProjectsSection() {
                   <FolderPlus size={18} />
                   Select Module
               </button>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
     </section>
   );
 }
-
 
