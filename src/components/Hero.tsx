@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
@@ -24,6 +24,10 @@ export default function Hero() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const profileTilt = useTransform(scrollYProgress, [0, 1], [0, -8]);
+  const sweepOffset = useTransform(scrollYProgress, [0, 1], ["-30%", "120%"]);
+
+  const tooltipCopy = useMemo(() => "Neural uplink stable", []);
 
   return (
     <section
@@ -38,11 +42,11 @@ export default function Hero() {
       {/* Background Elements */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <ParticleBackground />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/10 via-black to-black pointer-events-none" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-size-[50px_50px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[color:rgb(var(--glow-purple-rgb)/0.12)] via-black to-black pointer-events-none" />
+        <div className="glow-grid-overlay" />
         {/* Cyberpunk Glow */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000 pointer-events-none" />
+        <div className="glow-spot animate-pulse" data-color="cyan" style={{ top: "20%", left: "18%" }} />
+        <div className="glow-spot animate-pulse" data-color="purple" data-strength="soft" style={{ bottom: "18%", right: "18%" }} />
       </motion.div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
@@ -81,6 +85,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
             className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center"
+            style={{ pointerEvents: isBooting ? "none" : "auto" }}
           >
             <button
               onClick={() => setIsBooting(true)}
@@ -107,10 +112,11 @@ export default function Hero() {
         </div>
 
         {/* Profile Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.2, duration: 1.2 }}
+          style={{ rotateX: profileTilt }}
           className="flex-1 flex justify-center md:justify-end"
         >
           <CyberpunkProfile />

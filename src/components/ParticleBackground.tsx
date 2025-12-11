@@ -6,16 +6,25 @@ import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
 import { useReducedMotion } from "framer-motion";
 
+const createDeterministicRandom = (seed = 0.21) => {
+  let value = seed % 1;
+  return () => {
+    value = (value + 0.6180339887498948) % 1;
+    return value;
+  };
+};
+
 function ParticleField() {
   const ref = useRef<THREE.Points>(null!);
-  
+
   const positions = useMemo(() => {
+    const random = createDeterministicRandom(0.21);
     const count = 2000;
     const positions = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      const r = 1.5 * Math.cbrt(Math.random());
-      const theta = Math.random() * 2 * Math.PI;
-      const phi = Math.acos(2 * Math.random() - 1);
+      const r = 1.5 * Math.cbrt(random());
+      const theta = random() * 2 * Math.PI;
+      const phi = Math.acos(2 * random() - 1);
       
       const x = r * Math.sin(phi) * Math.cos(theta);
       const y = r * Math.sin(phi) * Math.sin(theta);

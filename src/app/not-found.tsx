@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function NotFound() {
   return (
     <main className="min-h-screen flex items-center justify-center bg-black text-white px-6">
@@ -7,12 +9,12 @@ export default function NotFound() {
         <p className="text-gray-400 max-w-md mx-auto">
           The page you were looking for isn&apos;t transmitting. Let&apos;s route you back to the neural core.
         </p>
-        <a
+        <Link
           href="/"
           className="inline-flex items-center justify-center px-6 py-3 bg-cyan text-black font-bold uppercase tracking-widest rounded-lg hover:bg-white transition-colors"
         >
           Return Home
-        </a>
+        </Link>
       </div>
     </main>
   );
