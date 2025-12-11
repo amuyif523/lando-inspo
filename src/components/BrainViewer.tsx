@@ -351,7 +351,8 @@ export default function BrainViewer() {
   }, [resolveCapability]);
 
   const simplifiedFallback = prefersReducedMotion || capability === "low";
-  const particleDensity = capability === "high" ? 1.25 : capability === "low" ? 0.55 : 1;
+  const isLow = capability === "low";
+  const particleDensity = capability === "high" ? 1.25 : isLow ? 0.55 : 1;
   const starCount = Math.max(1200, Math.floor(BASE_STAR_COUNT * particleDensity));
 
   if (simplifiedFallback) {
@@ -362,7 +363,7 @@ export default function BrainViewer() {
     }));
 
     return (
-      <div className="w-full h-[500px] md:h-[600px] rounded-2xl border border-white/5 bg-gradient-to-br from-cyan/10 via-black to-purple/20 flex items-center justify-center relative overflow-hidden">
+      <div className="w-full h-[500px] md:h-[600px] rounded-2xl border border-white/5 bg-linear-to-br from-cyan/10 via-black to-purple/20 flex items-center justify-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-cyan/10 via-transparent to-purple/10" />
         <div className="absolute inset-0 opacity-50">
           {simpleParticles.map((particle, idx) => (
@@ -383,7 +384,7 @@ export default function BrainViewer() {
 
   return (
     <div className="w-full h-[500px] md:h-[600px] cursor-grab active:cursor-grabbing bg-black/20 rounded-2xl border border-white/5 backdrop-blur-sm overflow-hidden relative">
-      <Canvas camera={{ position: [0, 0, 6], fov: 60 }} frameloop={capability === "low" ? "demand" : "always"}>
+      <Canvas camera={{ position: [0, 0, 6], fov: 60 }} frameloop={isLow ? "demand" : "always"}>
         <color attach="background" args={["transparent"]} />
         <NeuralAtlas density={particleDensity} />
         <Stars radius={80} depth={40} count={starCount} factor={3} saturation={0} fade speed={0.8 * particleDensity} />
@@ -400,5 +401,4 @@ export default function BrainViewer() {
     </div>
   );
 }
-
 
