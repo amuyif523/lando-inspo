@@ -5,6 +5,7 @@ import TerminalSection from "@/components/TerminalSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import SkillsSection from "@/components/SkillsSection";
 import CareerSection from "@/components/CareerSection";
+import TestimonialTicker from "@/components/TestimonialTicker";
 import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <ProjectsSection />
       <SkillsSection />
       <CareerSection />
+      <TestimonialTicker />
       <ContactSection />
     </main>
   );
