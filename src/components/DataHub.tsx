@@ -55,27 +55,31 @@ export default function DataHub() {
 
   return (
     <section id="data-hub" className="py-24 bg-black relative overflow-hidden">
-      <div className="container mx-auto px-6 mb-16">
+      <div className="glow-grid-overlay" />
+      <div className="glow-spot" data-color="cyan" data-strength="soft" style={{ top: "12%", left: "14%" }} />
+      <div className="glow-spot" data-color="purple" data-strength="soft" style={{ bottom: "10%", right: "10%" }} />
+
+      <div className="container mx-auto px-6 mb-16 relative z-10">
         <SectionHeader eyebrow="System Status" title="DATA COMMAND" highlight="CENTER" accent="cyan" />
       </div>
 
-      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
         {/* Left Column: Info & Countdown */}
         <div className="space-y-12">
           {/* Stats Details */}
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <GitGraph className="text-cyan" />
+            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-white/80">
+              <GitGraph className="text-[color:rgb(var(--glow-cyan-rgb))]" />
               <span>
                 {loading ? "Syncing commits..." : `${stats.commitsThisYear} Commits this year`}
               </span>
             </div>
-            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <Cpu className="text-cyan" />
+            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-white/80">
+              <Cpu className="text-[color:rgb(var(--glow-cyan-rgb))]" />
               <span>{stats.uptime} System Uptime</span>
             </div>
-            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-gray-300">
-              <Database className="text-cyan" />
+            <div className="flex items-center gap-4 text-xl md:text-2xl font-bold text-white/80">
+              <Database className="text-[color:rgb(var(--glow-cyan-rgb))]" />
               <span>{loading ? "Calculating repositories..." : `${stats.repositories} Repositories monitored`}</span>
             </div>
           </div>
@@ -114,8 +118,8 @@ export default function DataHub() {
           </div>
 
           {/* Countdown Timer */}
-          <div className="bg-white/5 border border-white/10 p-8 rounded-2xl backdrop-blur-sm">
-            <h3 className="text-sm font-bold uppercase text-gray-500 mb-6 tracking-widest">Next Project Launch</h3>
+          <div className="card-surface glow-card border rounded-2xl p-8">
+            <h3 className="text-sm font-bold uppercase text-white/60 mb-6 tracking-widest">Next Project Launch</h3>
             <Countdown targetDate={nextLaunchDate.toISOString()} />
           </div>
         </div>

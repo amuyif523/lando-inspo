@@ -67,16 +67,19 @@ export default function ProjectsSection() {
   };
 
   return (
-    <section id="projects" className="py-24 bg-zinc-950 relative">
-      <ProjectBuilder 
-        isOpen={isBuilderOpen} 
-        onClose={() => setIsBuilderOpen(false)} 
+    <section id="projects" className="py-24 bg-zinc-950 relative overflow-hidden">
+      <div className="glow-grid-overlay" />
+      <div className="glow-spot" data-color="cyan" data-strength="soft" style={{ top: "15%", right: "16%" }} />
+      <div className="glow-spot" data-color="purple" data-strength="soft" style={{ bottom: "12%", left: "12%" }} />
+      <ProjectBuilder
+        isOpen={isBuilderOpen}
+        onClose={() => setIsBuilderOpen(false)}
         projects={selectedProjects}
         onRemoveProject={removeFromBuilder}
         onSubmit={submitInquiry}
       />
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative z-10">
         <div className="flex justify-between items-end mb-16">
           <SectionHeader eyebrow="Arsenal" title="Project" highlight="Modules" accent="white" />
 
@@ -117,33 +120,36 @@ export default function ProjectsSection() {
         </div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {projects.map((project) => (
-            <div key={project.id} className="group relative bg-white/5 border border-white/10 rounded-xl p-6 hover:border-cyan/50 transition-all duration-300">
-              <div className="mb-4">
-                <span className="text-xs font-bold uppercase text-cyan tracking-widest border border-cyan/20 px-2 py-1 rounded">
-                  {project.category}
-                </span>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-cyan transition-colors">
-                {project.name}
-              </h3>
-              <p className="text-gray-400 text-sm mb-6">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((t) => (
-                  <span key={t} className="text-xs text-gray-500 bg-black/30 px-2 py-1 rounded">
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <button 
-                onClick={() => addToBuilder(project)}
-                className="w-full py-3 bg-white/10 hover:bg-cyan hover:text-black text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {projects.map((project) => (
+              <div
+                key={project.id}
+                className="group relative card-surface glow-card border rounded-xl p-6 hover:border-[color:rgb(var(--glow-cyan-rgb))] transition-all duration-300 hover:shadow-[0_0_40px_rgba(var(--glow-cyan-rgb),0.16)]"
               >
-                <FolderPlus size={18} />
-                Select Module
+                <div className="mb-4">
+                  <span className="text-xs font-bold uppercase tracking-widest text-[color:rgb(var(--glow-cyan-rgb))] border border-[color:rgb(var(--glow-cyan-rgb)/0.4)] px-2 py-1 rounded bg-[color:rgb(var(--glow-cyan-rgb)/0.05)]">
+                    {project.category}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[color:rgb(var(--glow-cyan-rgb))] transition-colors">
+                  {project.name}
+                </h3>
+                <p className="text-white/70 text-sm mb-6">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tech.map((t) => (
+                    <span key={t} className="text-xs text-white/60 bg-white/5 px-2 py-1 rounded border border-white/10">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <button
+                  onClick={() => addToBuilder(project)}
+                  className="w-full py-3 bg-[color:rgb(var(--glow-cyan-rgb)/0.12)] hover:bg-[color:rgb(var(--glow-cyan-rgb))] hover:text-black text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                >
+                  <FolderPlus size={18} />
+                  Select Module
               </button>
             </div>
           ))}
