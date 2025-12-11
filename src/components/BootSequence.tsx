@@ -7,17 +7,17 @@ interface BootSequenceProps {
   onComplete: () => void;
 }
 
+const BOOT_SEQUENCE = [
+  "INITIALIZING KERNEL...",
+  "LOADING NEURAL MODULES...",
+  "CONNECTING TO MAIN FRAME...",
+  "OPTIMIZING NEURAL PATHWAYS...",
+  "ACCESS GRANTED.",
+  "WELCOME, AMANUEL.",
+];
+
 export default function BootSequence({ onComplete }: BootSequenceProps) {
   const [lines, setLines] = useState<string[]>([]);
-  
-  const sequence = [
-    "INITIALIZING KERNEL...",
-    "LOADING NEURAL MODULES...",
-    "CONNECTING TO MAIN FRAME...",
-    "OPTIMIZING NEURAL PATHWAYS...",
-    "ACCESS GRANTED.",
-    "WELCOME, AMANUEL."
-  ];
 
   useEffect(() => {
     let delay = 0;
@@ -25,12 +25,12 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    sequence.forEach((line, index) => {
+    BOOT_SEQUENCE.forEach((line, index) => {
       delay += Math.random() * 400 + 100;
       const timeout = setTimeout(() => {
         if (mounted) {
           setLines(prev => [...prev, line]);
-          if (index === sequence.length - 1) {
+          if (index === BOOT_SEQUENCE.length - 1) {
             setTimeout(onComplete, 1000);
           }
         }
@@ -42,7 +42,7 @@ export default function BootSequence({ onComplete }: BootSequenceProps) {
       mounted = false;
       timeouts.forEach(clearTimeout);
     };
-  }, []);
+  }, [onComplete]);
 
   return (
     <motion.div 

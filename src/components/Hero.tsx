@@ -1,8 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
-import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
@@ -15,6 +15,7 @@ const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
 export default function Hero() {
   const ref = useRef(null);
   const [isBooting, setIsBooting] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -22,6 +23,10 @@ export default function Hero() {
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const profileTilt = useTransform(scrollYProgress, [0, 1], [0, -8]);
+  const sweepOffset = useTransform(scrollYProgress, [0, 1], ["-30%", "120%"]);
+
+  const tooltipCopy = useMemo(() => "Neural uplink stable", []);
 
   return (
     <section
@@ -41,6 +46,14 @@ export default function Hero() {
         {/* Cyberpunk Glow */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none" />
         <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000 pointer-events-none" />
+        {!prefersReducedMotion && (
+          <motion.div
+            aria-hidden
+            className="absolute inset-y-0 w-1/3 max-w-[480px] bg-linear-to-r from-transparent via-white/5 to-transparent blur-3xl"
+            style={{ x: sweepOffset, opacity: isBooting ? 0 : 0.6 }}
+            transition={{ repeat: Infinity, repeatType: "loop", ease: "easeInOut", duration: 12, delay: isBooting ? 1.2 : 0 }}
+          />
+        )}
       </motion.div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
@@ -79,28 +92,41 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.5 }}
             className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center"
+            style={{ pointerEvents: isBooting ? "none" : "auto" }}
           >
-            <button 
-              onClick={() => setIsBooting(true)}
-              className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant"
-            >
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-              <span className="relative block">Initialize System</span>
-            </button>
-            <Link
-              href="#projects"
-              className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300"
-            >
-              <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
-            </Link>
+            <div className="relative group">
+              <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/70 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-cyan opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                {tooltipCopy}
+              </span>
+              <button
+                onClick={() => setIsBooting(true)}
+                className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant"
+              >
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                <span className="relative block">Initialize System</span>
+              </button>
+            </div>
+            <div className="relative group">
+              <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/70 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-cyan opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                {tooltipCopy}
+              </span>
+              <Link
+                prefetch
+                href="#projects"
+                className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300"
+              >
+                <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
+              </Link>
+            </div>
           </motion.div>
         </div>
 
         {/* Profile Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.2, duration: 1.2 }}
+          style={{ rotateX: profileTilt }}
           className="flex-1 flex justify-center md:justify-end"
         >
           <CyberpunkProfile />
