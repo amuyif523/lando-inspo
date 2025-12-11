@@ -23,19 +23,21 @@ const orbitron = Orbitron({
 
 export const metadata: Metadata = {
   title: "Amanuel Fikremariam | Neural Architect",
-  description: "Portfolio for Amanuel Fikremariam — AI architect, machine learning engineer, and data systems builder.",
-  metadataBase: new URL("https://amanuel.dev"),
+  description:
+    "Cyberpunk AI portfolio showcasing Amanuel Fikremariam's neural particle hero, data systems, and intelligent products.",
+  metadataBase: new URL("https://amanuel.ai"),
   openGraph: {
     title: "Amanuel Fikremariam | Neural Architect",
-    description: "AI architect crafting intelligent systems across ML, data, and product.",
-    url: "https://amanuel.dev",
+    description:
+      "Explore the refreshed neural-particle hero experience and AI systems crafted by Amanuel Fikremariam.",
+    url: "https://amanuel.ai",
     siteName: "Amanuel Fikremariam",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://amanuel.ai/og-hero-particles.png",
         width: 1200,
         height: 630,
-        alt: "Amanuel Fikremariam — Neural Architect",
+        alt: "Cyberpunk hero portrait with neural particle field for Amanuel Fikremariam",
       },
     ],
     locale: "en_US",
@@ -44,8 +46,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Amanuel Fikremariam | Neural Architect",
-    description: "AI architect crafting intelligent systems across ML, data, and product.",
-    images: ["/og-image.png"],
+    description:
+      "Experience the updated neural-particle hero and AI systems portfolio from Amanuel Fikremariam.",
+    images: ["https://amanuel.ai/og-hero-particles.png"],
   },
 };
 
