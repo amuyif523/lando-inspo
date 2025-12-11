@@ -18,8 +18,9 @@ export default function CyberpunkProfile() {
         <div className="relative w-full h-full transition-all duration-700 filter grayscale contrast-125 group-hover:grayscale-0 group-hover:contrast-100">
           <Image 
             src="/amanuel.png" 
-            alt="Amanuel Fikremariam" 
+            alt="Amanuel Fikremariam in neon cyberpunk portrait with HUD reflections and data streams" 
             fill
+            sizes="(max-width: 768px) 90vw, 520px"
             className="object-cover object-center scale-100 group-hover:scale-105 transition-transform duration-700"
             priority
           />
