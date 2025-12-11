@@ -1,15 +1,26 @@
 @import "tailwindcss";
 
 :root {
+  --glow-cyan-rgb: 0 240 255;
+  --glow-purple-rgb: 189 0 255;
+  --glow-green-rgb: 74 222 128;
+  --glow-white-rgb: 255 255 255;
+  --glow-alpha-strong: 0.2;
+  --glow-alpha-medium: 0.14;
+  --glow-alpha-soft: 0.08;
+  --glow-grid-image: url("/grid.svg");
+  --glow-grid-size: 52px 52px;
+  --glow-grid-opacity: 0.12;
+  --glow-spot-blur: 120px;
   --background: #050505;
   --foreground: #ededed;
-  --neon-cyan: #00F0FF;
-  --neon-purple: #BD00FF;
+  --neon-cyan: rgb(var(--glow-cyan-rgb));
+  --neon-purple: rgb(var(--glow-purple-rgb));
   --dark-surface: #0A0A0A;
   --gradient-accent: linear-gradient(90deg, var(--neon-cyan) 0%, #ffffff 50%, var(--neon-purple) 100%);
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --border: rgba(255, 255, 255, 0.1);
+  --surface: color-mix(in srgb, rgba(255, 255, 255, 0.04) 70%, rgba(var(--glow-purple-rgb), var(--glow-alpha-soft)) 30%);
+  --surface-strong: color-mix(in srgb, rgba(255, 255, 255, 0.08) 60%, rgba(var(--glow-cyan-rgb), var(--glow-alpha-soft)) 40%);
+  --border: rgba(255, 255, 255, 0.12);
   --shadow-soft: 0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
@@ -18,6 +29,8 @@
   --color-foreground: var(--foreground);
   --color-cyan: var(--neon-cyan);
   --color-purple: var(--neon-purple);
+  --color-green-400: rgb(var(--glow-green-rgb));
+  --color-green-500: rgb(var(--glow-green-rgb));
   --color-dark-surface: var(--dark-surface);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -31,10 +44,78 @@ body {
 }
 
 .card-surface {
+  position: relative;
+  overflow: hidden;
   background: var(--surface);
   box-shadow: var(--shadow-soft);
   border-color: var(--border);
   backdrop-filter: blur(6px);
+}
+
+.card-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--glow-grid-image);
+  background-size: var(--glow-grid-size);
+  opacity: var(--glow-grid-opacity);
+  pointer-events: none;
+}
+
+.card-surface::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(var(--glow-cyan-rgb), var(--glow-alpha-soft)), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(var(--glow-purple-rgb), var(--glow-alpha-soft)), transparent 45%);
+  pointer-events: none;
+}
+
+.card-surface > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glow-card {
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  box-shadow: var(--shadow-soft), 0 0 40px rgba(var(--glow-cyan-rgb), 0.08);
+}
+
+.glow-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: var(--glow-grid-image);
+  background-size: var(--glow-grid-size);
+  opacity: var(--glow-grid-opacity);
+  pointer-events: none;
+}
+
+.glow-spot {
+  position: absolute;
+  width: var(--glow-size, 24rem);
+  height: var(--glow-size, 24rem);
+  border-radius: 9999px;
+  background: rgb(var(--glow-color, var(--glow-cyan-rgb)) / var(--glow-alpha-strong));
+  filter: blur(var(--glow-spot-blur));
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.glow-spot[data-strength="soft"] {
+  background: rgb(var(--glow-color, var(--glow-cyan-rgb)) / var(--glow-alpha-medium));
+}
+
+.glow-spot[data-color="cyan"] {
+  --glow-color: var(--glow-cyan-rgb);
+}
+
+.glow-spot[data-color="purple"] {
+  --glow-color: var(--glow-purple-rgb);
+}
+
+.glow-spot[data-color="green"] {
+  --glow-color: var(--glow-green-rgb);
 }
 
 .display-font,

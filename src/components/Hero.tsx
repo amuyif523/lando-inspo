@@ -36,11 +36,11 @@ export default function Hero() {
       {/* Background Elements */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <ParticleBackground />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/10 via-black to-black pointer-events-none" />
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-size-[50px_50px] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[color:rgb(var(--glow-purple-rgb)/0.12)] via-black to-black pointer-events-none" />
+        <div className="glow-grid-overlay" />
         {/* Cyberpunk Glow */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000 pointer-events-none" />
+        <div className="glow-spot animate-pulse" data-color="cyan" style={{ top: "20%", left: "18%" }} />
+        <div className="glow-spot animate-pulse" data-color="purple" data-strength="soft" style={{ bottom: "18%", right: "18%" }} />
       </motion.div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">

@@ -60,28 +60,33 @@ export default function TerminalSection() {
 
   return (
     <section id="terminal" className="py-24 bg-black relative overflow-hidden font-mono">
-      <div className="container mx-auto px-6">
+      <div className="glow-grid-overlay" />
+      <div className="glow-spot" data-color="cyan" data-strength="soft" style={{ top: "10%", right: "12%" }} />
+      <div className="glow-spot" data-color="purple" data-strength="soft" style={{ bottom: "8%", left: "14%" }} />
+
+      <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-green-500" />
-            <span className="text-green-500 font-bold uppercase tracking-widest">
+            <div className="w-12 h-1 bg-[color:rgb(var(--glow-cyan-rgb))]" />
+            <span className="text-[color:rgb(var(--glow-cyan-rgb))] font-bold uppercase tracking-widest">
               Command Line Interface
             </span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
-            System <span className="text-transparent bg-clip-text bg-linear-to-r from-green-500 to-cyan">Terminal</span>
+            System
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-[color:rgb(var(--glow-cyan-rgb))] to-[color:rgb(var(--glow-purple-rgb))]"> Terminal</span>
           </h2>
         </div>
 
         {/* Terminal Window */}
-        <div className="w-full max-w-4xl mx-auto bg-black border border-green-500/30 rounded-lg shadow-[0_0_50px_rgba(0,255,0,0.1)] overflow-hidden">
+        <div className="w-full max-w-4xl mx-auto card-surface glow-card rounded-2xl overflow-hidden border">
           {/* Title Bar */}
-          <div className="bg-green-500/10 border-b border-green-500/30 p-3 flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500/50" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-            <div className="w-3 h-3 rounded-full bg-green-500/50" />
-            <div className="ml-4 text-xs text-green-500/70 flex items-center gap-2">
+          <div className="bg-[color:rgb(var(--glow-cyan-rgb)/0.08)] border-b border-[color:rgb(var(--glow-cyan-rgb)/0.32)] p-3 flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-red-400/60" />
+            <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
+            <div className="w-3 h-3 rounded-full bg-[color:rgb(var(--glow-cyan-rgb)/0.7)]" />
+            <div className="ml-4 text-xs text-[color:rgb(var(--glow-cyan-rgb))] flex items-center gap-2">
               <Terminal className="w-3 h-3" />
               guest@amanuel-portfolio:~
             </div>
@@ -101,13 +106,13 @@ export default function TerminalSection() {
               >
                 {log.type === "input" && (
                   <div className="flex gap-2 text-white">
-                    <span className="text-green-500">➜</span>
+                    <span className="text-[color:rgb(var(--glow-cyan-rgb))]">➜</span>
                     <span className="text-cyan">~</span>
                     <span>{log.content}</span>
                   </div>
                 )}
                 {log.type === "output" && (
-                  <div className="text-green-400 ml-6">{log.content}</div>
+                  <div className="text-[color:rgb(var(--glow-green-rgb))] ml-6">{log.content}</div>
                 )}
                 {log.type === "error" && (
                   <div className="text-red-400 ml-6">{log.content}</div>
@@ -120,18 +125,21 @@ export default function TerminalSection() {
           </div>
 
           {/* Input Area */}
-          <form onSubmit={handleCommand} className="border-t border-green-500/30 p-4 bg-green-500/5 flex gap-2">
-            <span className="text-green-500 pt-1">➜</span>
+          <form
+            onSubmit={handleCommand}
+            className="border-t border-[color:rgb(var(--glow-cyan-rgb)/0.32)] p-4 bg-[color:rgb(var(--glow-cyan-rgb)/0.06)] flex gap-2"
+          >
+            <span className="text-[color:rgb(var(--glow-cyan-rgb))] pt-1">➜</span>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder-green-500/30"
+              className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder-[color:rgb(var(--glow-cyan-rgb)/0.4)]"
               placeholder="Enter command..."
               aria-label="Terminal command input"
               autoFocus
             />
-            <button type="submit" className="text-green-500 hover:text-green-400">
+            <button type="submit" className="text-[color:rgb(var(--glow-cyan-rgb))] hover:text-white">
               <Send className="w-5 h-5" />
             </button>
           </form>
