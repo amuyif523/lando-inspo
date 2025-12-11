@@ -44,14 +44,14 @@ export default function Hero() {
       {/* Background Elements */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
         <ParticleBackground />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-[color:rgb(var(--glow-purple-rgb)/0.12)] via-black to-black pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/12 via-black to-black pointer-events-none" />
         <div className="glow-grid-overlay" />
         {/* Cyberpunk Glow */}
         <div className="glow-spot animate-pulse" data-color="cyan" style={{ top: "20%", left: "18%" }} />
         <div className="glow-spot animate-pulse" data-color="purple" data-strength="soft" style={{ bottom: "18%", right: "18%" }} />
       </motion.div>
 
-      <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12" style={{ x: driftX }}>
+      <motion.div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12" style={{ x: driftX }}>
         
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
@@ -133,7 +133,7 @@ export default function Hero() {
             />
           )}
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Scroll Indicator */}
       <motion.div

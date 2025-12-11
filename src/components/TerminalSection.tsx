@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Terminal, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import CyberCard from "./CyberCard";
 
 type LogEntry = {
   type: "input" | "output" | "error" | "system";
@@ -68,25 +68,25 @@ export default function TerminalSection() {
         {/* Header */}
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-1 bg-[color:rgb(var(--glow-cyan-rgb))]" />
-            <span className="text-[color:rgb(var(--glow-cyan-rgb))] font-bold uppercase tracking-widest">
+            <div className="w-12 h-1 bg-cyan" />
+            <span className="text-cyan font-bold uppercase tracking-widest">
               Command Line Interface
             </span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black italic uppercase tracking-tighter text-white">
             System
-            <span className="text-transparent bg-clip-text bg-linear-to-r from-[color:rgb(var(--glow-cyan-rgb))] to-[color:rgb(var(--glow-purple-rgb))]"> Terminal</span>
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-cyan to-purple"> Terminal</span>
           </h2>
         </div>
 
         {/* Terminal Window */}
-        <div className="w-full max-w-4xl mx-auto card-surface glow-card rounded-2xl overflow-hidden border">
+        <CyberCard className="w-full max-w-4xl mx-auto p-0 overflow-hidden flex flex-col">
           {/* Title Bar */}
-          <div className="bg-[color:rgb(var(--glow-cyan-rgb)/0.08)] border-b border-[color:rgb(var(--glow-cyan-rgb)/0.32)] p-3 flex items-center gap-2">
+          <div className="bg-cyan/10 border-b border-cyan/30 p-3 flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-red-400/60" />
             <div className="w-3 h-3 rounded-full bg-yellow-400/60" />
-            <div className="w-3 h-3 rounded-full bg-[color:rgb(var(--glow-cyan-rgb)/0.7)]" />
-            <div className="ml-4 text-xs text-[color:rgb(var(--glow-cyan-rgb))] flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full bg-cyan/70" />
+            <div className="ml-4 text-xs text-cyan flex items-center gap-2">
               <Terminal className="w-3 h-3" />
               guest@amanuel-portfolio:~
             </div>
@@ -98,21 +98,16 @@ export default function TerminalSection() {
             className="h-[400px] overflow-y-auto p-6 font-mono text-sm md:text-base custom-scrollbar"
           >
             {logs.map((log, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className="mb-2"
-              >
+              <div key={i} className="mb-2">
                 {log.type === "input" && (
                   <div className="flex gap-2 text-white">
-                    <span className="text-[color:rgb(var(--glow-cyan-rgb))]">➜</span>
+                    <span className="text-cyan">➜</span>
                     <span className="text-cyan">~</span>
                     <span>{log.content}</span>
                   </div>
                 )}
                 {log.type === "output" && (
-                  <div className="text-[color:rgb(var(--glow-green-rgb))] ml-6">{log.content}</div>
+                  <div className="text-green-400 ml-6">{log.content}</div>
                 )}
                 {log.type === "error" && (
                   <div className="text-red-400 ml-6">{log.content}</div>
@@ -120,30 +115,30 @@ export default function TerminalSection() {
                 {log.type === "system" && (
                   <div className="text-gray-500 italic ml-6"># {log.content}</div>
                 )}
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Input Area */}
           <form
             onSubmit={handleCommand}
-            className="border-t border-[color:rgb(var(--glow-cyan-rgb)/0.32)] p-4 bg-[color:rgb(var(--glow-cyan-rgb)/0.06)] flex gap-2"
+            className="border-t border-cyan/30 p-4 bg-cyan/5 flex gap-2"
           >
-            <span className="text-[color:rgb(var(--glow-cyan-rgb))] pt-1">➜</span>
+            <span className="text-cyan pt-1">➜</span>
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder-[color:rgb(var(--glow-cyan-rgb)/0.4)]"
+              className="flex-1 bg-transparent border-none outline-none text-white font-mono placeholder-cyan/40"
               placeholder="Enter command..."
               aria-label="Terminal command input"
               autoFocus
             />
-            <button type="submit" className="text-[color:rgb(var(--glow-cyan-rgb))] hover:text-white">
+            <button type="submit" className="text-cyan hover:text-white">
               <Send className="w-5 h-5" />
             </button>
           </form>
-        </div>
+        </CyberCard>
       </div>
     </section>
   );

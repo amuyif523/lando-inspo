@@ -8,6 +8,7 @@ import { fetchActivityStats } from "@/lib/data";
 import { fallbackActivityStats } from "@/content/stats";
 import SectionHeader from "./SectionHeader";
 import StatCard from "./StatCard";
+import CyberCard from "./CyberCard";
 
 export default function DataHub() {
   const nextLaunchDate = new Date();
@@ -85,18 +86,18 @@ export default function DataHub() {
           </div>
 
           {/* Outcome Stories */}
-          <div className="bg-white/5 border border-white/10 p-6 rounded-2xl backdrop-blur-sm space-y-4">
+          <div className="space-y-4">
             <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-cyan">
               <Sparkles size={16} />
               Outcome Stories
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {outcomeStories.map((story) => (
-                <div key={story.title} className="p-4 rounded-xl bg-black/50 border border-white/10">
+              {outcomeStories.map((story, idx) => (
+                <CyberCard key={story.title} hoverEffect delay={idx * 0.1} className="p-4">
                   <div className="flex items-start justify-between gap-2 mb-3">
                     <div>
                       <p className="text-xs uppercase text-gray-500 tracking-[0.16em]">Before/After</p>
-                      <h4 className="text-lg font-semibold text-white">{story.title}</h4>
+                      <h4 className="text-lg font-semibold text-white font-display">{story.title}</h4>
                     </div>
                     <TrendingUp className="text-cyan shrink-0" size={18} />
                   </div>
@@ -112,7 +113,7 @@ export default function DataHub() {
                   </div>
                   <p className="text-xs text-gray-300 mb-2">{story.detail}</p>
                   <p className="text-sm font-semibold text-cyan">{story.impact}</p>
-                </div>
+                </CyberCard>
               ))}
             </div>
           </div>

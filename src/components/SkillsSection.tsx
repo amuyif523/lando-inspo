@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { skillGroups, profile } from "@/content/profile";
 import SectionHeader from "./SectionHeader";
+import CyberCard from "./CyberCard";
 
 export default function SkillsSection() {
   return (
@@ -16,15 +17,14 @@ export default function SkillsSection() {
         {/* Skills Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillGroups.map((group, idx) => (
-            <motion.div
+            <CyberCard
               key={group.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              className="bg-white/5 border border-white/10 rounded-xl p-6 h-full flex flex-col gap-4"
+              hoverEffect
+              delay={idx * 0.05}
+              className="h-full flex flex-col gap-4"
             >
               <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold uppercase text-white">{group.name}</h3>
+                <h3 className="text-xl font-bold uppercase text-white font-display">{group.name}</h3>
                 <span className="text-xs text-cyan/80 border border-cyan/20 px-2 py-1 rounded-full">
                   {group.items.length} items
                 </span>
@@ -37,7 +37,7 @@ export default function SkillsSection() {
                   </span>
                 ))}
               </div>
-            </motion.div>
+            </CyberCard>
           ))}
         </div>
       </div>

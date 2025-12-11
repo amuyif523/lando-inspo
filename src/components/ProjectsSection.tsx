@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { FolderPlus, FileText, ShieldCheck, Sparkles } from "lucide-react";
+import { FolderPlus, FileText, ShieldCheck, Sparkles, ArrowUpRight } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
 import { projects, type Project } from "@/content/projects";
 import { contactChannels } from "@/content/profile";
 import SectionHeader from "./SectionHeader";
+import CyberCard from "./CyberCard";
 
 export default function ProjectsSection() {
   const trustSignals = [
@@ -123,39 +123,41 @@ export default function ProjectsSection() {
         {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {projects.map((project, idx) => (
-              <motion.div
+              <CyberCard
                 key={project.id}
-                initial={{ opacity: 0, y: 20, rotateX: -3 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
-                transition={{ delay: idx * 0.05, duration: 0.4 }}
-                className="group relative card-surface glow-card border rounded-xl p-6 hover:border-[color:rgb(var(--glow-cyan-rgb))] transition-all duration-300 hover:shadow-[0_0_40px_rgba(var(--glow-cyan-rgb),0.16)]"
+                hoverEffect
+                delay={idx * 0.05}
+                className="flex flex-col justify-between"
               >
-                <div className="mb-4">
-                  <span className="text-xs font-bold uppercase tracking-widest text-[color:rgb(var(--glow-cyan-rgb))] border border-[color:rgb(var(--glow-cyan-rgb)/0.4)] px-2 py-1 rounded bg-[color:rgb(var(--glow-cyan-rgb)/0.05)]">
-                    {project.category}
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-[color:rgb(var(--glow-cyan-rgb))] transition-colors">
-                  {project.name}
-                </h3>
-                <p className="text-white/70 text-sm mb-6">
-                  {project.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((t) => (
-                    <span key={t} className="text-xs text-white/60 bg-white/5 px-2 py-1 rounded border border-white/10">
-                      {t}
+                <div>
+                  <div className="mb-4 flex justify-between items-start">
+                    <span className="text-xs font-bold uppercase tracking-widest text-cyan border border-cyan/40 px-2 py-1 rounded bg-cyan/5">
+                      {project.category}
                     </span>
-                  ))}
+                    <ArrowUpRight className="text-white/20 group-hover:text-cyan transition-colors" size={20} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2 font-display group-hover:text-cyan transition-colors">
+                    {project.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm mb-6 leading-relaxed">
+                    {project.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((t) => (
+                      <span key={t} className="text-xs text-gray-400 bg-black/40 px-2 py-1 rounded border border-white/10">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <button
                   onClick={() => addToBuilder(project)}
-                  className="w-full py-3 bg-[color:rgb(var(--glow-cyan-rgb)/0.12)] hover:bg-[color:rgb(var(--glow-cyan-rgb))] hover:text-black text-white font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                  className="w-full py-3 bg-cyan/10 hover:bg-cyan hover:text-black text-cyan font-bold uppercase tracking-wider rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group/btn"
                 >
-                  <FolderPlus size={18} />
+                  <FolderPlus size={18} className="group-hover/btn:scale-110 transition-transform" />
                   Select Module
               </button>
-            </motion.div>
+            </CyberCard>
           ))}
         </div>
       </div>

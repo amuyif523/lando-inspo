@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 import SectionHeader from "./SectionHeader";
+import CyberCard from "./CyberCard";
 
 const testimonials = [
   {
@@ -35,7 +36,7 @@ export default function TestimonialTicker() {
   const doubledLogos = useMemo(() => [...logos, ...logos], []);
 
   return (
-    <section className="py-20 bg-gradient-to-r from-zinc-950 via-black to-zinc-950 border-y border-white/5">
+    <section className="py-20 bg-linear-to-r from-zinc-950 via-black to-zinc-950 border-y border-white/5">
       <div className="container mx-auto px-6 mb-10">
         <SectionHeader eyebrow="Proof" title="Signals" highlight="Trusted" accent="cyan" />
       </div>
@@ -44,10 +45,14 @@ export default function TestimonialTicker() {
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6">
           <div className="ticker">
             {[...testimonials, ...testimonials].map((item, idx) => (
-              <div key={`${item.name}-${idx}`} className="shrink-0 w-[320px] md:w-[420px] mr-6 bg-black/60 border border-white/10 rounded-xl p-4 shadow-lg">
-                <p className="text-sm md:text-base text-gray-200 leading-relaxed">“{item.quote}”</p>
-                <p className="mt-3 text-xs uppercase tracking-[0.18em] text-cyan font-semibold">{item.name}</p>
-              </div>
+              <CyberCard
+                key={`${item.name}-${idx}`}
+                className="shrink-0 w-[320px] md:w-[420px] mr-6 flex flex-col justify-between"
+                hoverEffect
+              >
+                <p className="text-sm md:text-base text-gray-300 leading-relaxed italic">“{item.quote}”</p>
+                <p className="mt-4 text-xs uppercase tracking-[0.18em] text-cyan font-bold">{item.name}</p>
+              </CyberCard>
             ))}
           </div>
         </div>
