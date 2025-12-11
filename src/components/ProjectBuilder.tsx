@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, FolderPlus, Trash2, Send } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { useState } from "react";
+import { useContactPrefetch } from "@/lib/contactPrefetch";
+
+type Status = "idle" | "submitting" | "success" | "error";
 
 interface ProjectBuilderProps {
   isOpen: boolean;
@@ -15,8 +18,16 @@ interface ProjectBuilderProps {
 
 export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProject, onSubmit }: ProjectBuilderProps) {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const prefetchContact = useContactPrefetch();
+
+  const statusCopy: Record<Status, string> = {
+    idle: "Neural uplink idle. Queue modules to initiate.",
+    submitting: "Synchronizing signal… establishing uplink.",
+    success: "Neural uplink stable. Inquiry received.",
+    error: error || "Signal interference detected. Retry the transmission.",
+  };
 
   const handleSubmit = async () => {
     if (!onSubmit) return;
@@ -25,6 +36,7 @@ export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProj
       return;
     }
     setError(null);
+    prefetchContact();
     setStatus("submitting");
     try {
       const message = `Interested in modules: ${projects.map((p) => p.name).join(", ")}`;
@@ -110,6 +122,12 @@ export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProj
 
             {/* Footer */}
             <div className="p-6 border-t border-white/10 bg-zinc-900">
+              <div className="mb-3 flex items-center justify-between text-[11px] uppercase tracking-[0.25em] text-gray-500" aria-live="polite">
+                <span>Status</span>
+                <span className={status === "error" ? "text-red-400" : status === "success" ? "text-green-400" : "text-gray-300"}>
+                  {statusCopy[status]}
+                </span>
+              </div>
               {projects.length > 0 && (
                 <div className="mb-3">
                   <label className="block text-xs uppercase tracking-widest text-gray-400 mb-1">Reply-To Email</label>
@@ -124,14 +142,15 @@ export default function ProjectBuilder({ isOpen, onClose, projects, onRemoveProj
                 </div>
               )}
               {error && <p className="text-xs text-red-400 mb-2">{error}</p>}
-              {status === "success" && <p className="text-xs text-green-400 mb-2">Inquiry sent. I will reach out soon.</p>}
               <button
                 onClick={handleSubmit}
                 className="w-full py-4 bg-cyan text-black font-black uppercase tracking-widest hover:bg-white transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={projects.length === 0 || status === "submitting"}
+                onMouseEnter={prefetchContact}
+                onFocus={prefetchContact}
               >
                 <Send size={18} />
-                {status === "submitting" ? "Sending..." : "Initiate Inquiry"}
+                {status === "submitting" ? "Transmitting…" : "Initiate Inquiry"}
               </button>
             </div>
           </motion.div>

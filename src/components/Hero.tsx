@@ -6,6 +6,7 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
+import { useContactPrefetch } from "@/lib/contactPrefetch";
 
 const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
   ssr: false,
@@ -15,7 +16,7 @@ const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
 export default function Hero() {
   const ref = useRef(null);
   const [isBooting, setIsBooting] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
+  const prefetchContact = useContactPrefetch();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -86,30 +87,27 @@ export default function Hero() {
             className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center"
             style={{ pointerEvents: isBooting ? "none" : "auto" }}
           >
-            <div className="relative group">
-              <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/70 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-cyan opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                {tooltipCopy}
-              </span>
-              <button
-                onClick={() => setIsBooting(true)}
-                className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant"
-              >
-                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                <span className="relative block">Initialize System</span>
-              </button>
-            </div>
-            <div className="relative group">
-              <span className="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-black/70 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-cyan opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                {tooltipCopy}
-              </span>
-              <Link
-                prefetch
-                href="#projects"
-                className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300"
-              >
-                <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
-              </Link>
-            </div>
+            <button
+              onClick={() => setIsBooting(true)}
+              className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant"
+            >
+              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+              <span className="relative block">Initialize System</span>
+            </button>
+            <Link
+              href="#projects"
+              className="group border border-white/20 bg-white/5 backdrop-blur-sm text-white px-8 py-4 font-bold uppercase text-lg hover:bg-white/10 transition-all duration-300"
+            >
+              <span className="block group-hover:translate-x-2 transition-transform">View Projects &rarr;</span>
+            </Link>
+            <Link
+              href="#contact"
+              className="group border border-cyan/40 bg-cyan/10 text-white px-8 py-4 font-bold uppercase text-lg hover:bg-cyan/20 transition-all duration-300"
+              onMouseEnter={prefetchContact}
+              onFocus={prefetchContact}
+            >
+              <span className="block group-hover:translate-x-2 transition-transform">Launch Mission Brief</span>
+            </Link>
           </motion.div>
         </div>
 
