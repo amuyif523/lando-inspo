@@ -1,13 +1,34 @@
 "use client";
 
 import { useState } from "react";
-import { FolderPlus } from "lucide-react";
+import { FolderPlus, FileText, ShieldCheck, Sparkles } from "lucide-react";
 import ProjectBuilder from "./ProjectBuilder";
 import { projects, type Project } from "@/content/projects";
 import { contactChannels } from "@/content/profile";
 import SectionHeader from "./SectionHeader";
 
 export default function ProjectsSection() {
+  const trustSignals = [
+    {
+      label: "ICML Paper",
+      color: "text-cyan",
+      detail: "Evaluated retrieval robustness across 3B+ tokens; cited for safety baselines.",
+      icon: <FileText size={16} />,
+    },
+    {
+      label: "USPTO Patent",
+      color: "text-amber-300",
+      detail: "Filed adaptive orchestration for AI agents that self-verify outputs in production.",
+      icon: <ShieldCheck size={16} />,
+    },
+    {
+      label: "NeurIPS Talk",
+      color: "text-purple-300",
+      detail: "Shared autonomous data quality agents; 1.2k attendees and follow-on collaborations.",
+      icon: <Sparkles size={16} />,
+    },
+  ];
+
   const [isBuilderOpen, setIsBuilderOpen] = useState(false);
   const [selectedProjects, setSelectedProjects] = useState<Project[]>([]);
   const [builderError, setBuilderError] = useState<string | null>(null);
@@ -80,6 +101,23 @@ export default function ProjectsSection() {
             {builderError} — try the contact form or email {contactChannels[0].display}.
           </div>
         )}
+
+        <div className="flex flex-wrap items-center gap-3 mb-10">
+          {trustSignals.map((signal) => (
+            <div
+              key={signal.label}
+              className="group relative px-4 py-3 border border-white/10 rounded-full bg-white/5 text-sm flex items-center gap-2"
+            >
+              <span className={`${signal.color} drop-shadow-md`}>{signal.icon}</span>
+              <span className="font-semibold text-white">{signal.label}</span>
+              <div className="absolute left-0 right-0 translate-y-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:translate-y-3 transition-all duration-200">
+                <div className="text-xs text-gray-300 bg-black/90 border border-white/10 rounded-xl p-3 shadow-xl">
+                  {signal.detail}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
         {/* Project Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
