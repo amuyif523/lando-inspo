@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useMotionSettings } from "./MotionProvider";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -18,6 +19,8 @@ const navLinks = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { mode, toggleMotionMode } = useMotionSettings();
+  const motionLabel = mode === "reduced" ? "Reduced" : "Full FX";
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-white/10">
@@ -38,6 +41,13 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+          <button
+            onClick={toggleMotionMode}
+            className="border border-white/10 bg-white/5 hover:bg-white/10 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest transition-colors"
+            aria-label="Toggle motion mode"
+          >
+            Motion: {motionLabel}
+          </button>
           <button className="bg-cyan text-black px-6 py-2 font-bold uppercase text-sm hover:bg-white transition-colors">
             <span className="block">Initialize</span>
           </button>
@@ -70,6 +80,16 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
+          <button
+            onClick={() => {
+              toggleMotionMode();
+              setIsOpen(false);
+            }}
+            className="border border-white/10 bg-white/5 hover:bg-white/10 rounded-full px-4 py-3 text-sm font-bold uppercase tracking-widest transition-colors"
+            aria-label="Toggle motion mode"
+          >
+            Motion: {motionLabel}
+          </button>
         </motion.div>
       )}
     </nav>

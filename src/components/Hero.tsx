@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import BootSequence from "./BootSequence";
 import CyberpunkProfile from "./CyberpunkProfile";
+import { useMotionSettings } from "./MotionProvider";
 
 const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
   ssr: false,
@@ -15,6 +16,7 @@ const ParticleBackground = dynamic(() => import("./ParticleBackground"), {
 export default function Hero() {
   const ref = useRef(null);
   const [isBooting, setIsBooting] = useState(false);
+  const { isReducedMotion } = useMotionSettings();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
@@ -34,17 +36,21 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Background Elements */}
-      <motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
-        <ParticleBackground />
+      <motion.div style={isReducedMotion ? undefined : { y, opacity }} className="absolute inset-0 z-0">
+        {!isReducedMotion && <ParticleBackground />}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-purple/10 via-black to-black pointer-events-none" />
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-20 bg-size-[50px_50px] pointer-events-none" />
         {/* Cyberpunk Glow */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000 pointer-events-none" />
+        {!isReducedMotion && (
+          <>
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-cyan/20 rounded-full blur-[128px] mix-blend-screen animate-pulse pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple/20 rounded-full blur-[128px] mix-blend-screen animate-pulse delay-1000 pointer-events-none" />
+          </>
+        )}
       </motion.div>
 
       <div className="container mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
-        
+
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
           <motion.div
@@ -80,7 +86,7 @@ export default function Hero() {
             transition={{ delay: 0.7, duration: 0.5 }}
             className="flex flex-col md:flex-row gap-6 justify-center md:justify-start items-center"
           >
-            <button 
+            <button
               onClick={() => setIsBooting(true)}
               className="group relative bg-cyan text-black px-8 py-4 font-bold uppercase text-lg hover:bg-white transition-all duration-300 overflow-hidden clip-path-slant"
             >
@@ -97,7 +103,7 @@ export default function Hero() {
         </div>
 
         {/* Profile Image */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ delay: 0.2, duration: 1.2 }}
@@ -122,5 +128,4 @@ export default function Hero() {
     </section>
   );
 }
-
 

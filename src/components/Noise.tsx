@@ -1,6 +1,16 @@
 "use client";
 
+import { useMotionSettings } from "./MotionProvider";
+
 export default function Noise() {
+  const { isReducedMotion } = useMotionSettings();
+
+  if (isReducedMotion) {
+    return (
+      <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.02] bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-white/5 via-transparent to-black" />
+    );
+  }
+
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay">
       <svg className="w-full h-full">
@@ -17,5 +27,3 @@ export default function Noise() {
     </div>
   );
 }
-
-

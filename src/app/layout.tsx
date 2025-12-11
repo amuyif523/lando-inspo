@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Noise from "@/components/Noise";
+import { MotionProvider } from "@/components/MotionProvider";
 import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
@@ -59,14 +60,14 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} antialiased bg-black text-white`}
       >
-        <Noise />
-        <Navbar />
-        {children}
-        <Analytics />
-        <Footer />
+        <MotionProvider>
+          <Noise />
+          <Navbar />
+          {children}
+          <Analytics />
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );
 }
-
-
